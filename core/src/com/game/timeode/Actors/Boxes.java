@@ -8,6 +8,8 @@ public class Boxes extends Actor{
 
     public Boxes(Texture img, Point2D position, float speed, float A, float B) {
         super(img, position, speed, A, B);
+        this.x = position.getX();
+        this.y = position.getY();
     }
 
     @Override

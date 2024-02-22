@@ -7,8 +7,6 @@ import com.game.timeode.Tools.Point2D;
 import com.game.timeode.Tools.Square;
 
 public abstract class Actor extends GraphicsObj {
-
-    public Point2D position;
     public float speed,A,B;
     public Square bounds;
     public Point2D direction;

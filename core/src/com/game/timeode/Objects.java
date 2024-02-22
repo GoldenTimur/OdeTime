@@ -61,4 +61,12 @@ public abstract class Objects implements Interface{
     public Start getStart() {
         return start;
     }
+
+    public Load getLoad() {
+        return load;
+    }
+
+    public Boxes getBox() {
+        return box;
+    }
 }

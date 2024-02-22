@@ -10,6 +10,7 @@ import com.game.timeode.Actors.Player;
 import com.game.timeode.Background.Load;
 import com.game.timeode.Background.Name;
 import com.game.timeode.Background.Start;
+import com.game.timeode.GraphicsObj.GraphicsObj;
 import com.game.timeode.Main;
 import com.game.timeode.Objects;
 import com.game.timeode.Tools.Fight;
@@ -175,11 +176,12 @@ public class GameSc extends Objects implements Screen  {
             playButton.update(x, y, isDownTouch, pointer);
         }
     }
-    public void walk(float x,float y){
-        this.scene.walk(x,y);
+    public void walk(GraphicsObj a,float x,float y){
+        a.walk(x,y);
     }
-    public float getX(Point2D a){
-        float d = a.getX();
+    public float ObjGetX(GraphicsObj a){
+        Point2D b = a.getPosition();
+        float d = b.getX();
         return d;
     }
     public void setX(Point2D a, float x){

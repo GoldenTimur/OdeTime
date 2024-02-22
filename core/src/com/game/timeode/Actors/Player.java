@@ -43,14 +43,16 @@ public class Player extends Actor{
     public void update() {
         if(position.getX()+A+Main.WIDTH/100 > Main.WIDTH){
             position.setX(Main.WIDTH-A-Main.WIDTH/100);
-            if (gameSc.getX(gameSc.getScene().getPosition())>-Main.HEIGHT*2.75f) {
-                gameSc.walk(-direction.getX() * speed, 0);
+            if (gameSc.ObjGetX(gameSc.getScene())>-Main.HEIGHT*2.75f) {
+                gameSc.walk(gameSc.getScene(),-direction.getX() * speed, 0);
+                gameSc.walk(gameSc.getBox(),-direction.getX() * speed, 0);
             }
         }
         if(position.getX()-Main.WIDTH/100 < 0){
             position.setX(Main.WIDTH/100);
-            if (gameSc.getX(gameSc.getScene().getPosition())<0) {
-                gameSc.walk(-direction.getX() * speed, 0);
+            if (gameSc.ObjGetX(gameSc.getScene())<0) {
+                gameSc.walk(gameSc.getScene(),-direction.getX() * speed, 0);
+                gameSc.walk(gameSc.getBox(),-direction.getX() * speed, 0);
             }
         }
         if(position.getY()+B+Main.HEIGHT/100 > Main.HEIGHT){
