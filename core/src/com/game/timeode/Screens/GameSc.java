@@ -5,7 +5,9 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.game.timeode.Actors.Boxes;
 import com.game.timeode.Actors.Player;
+import com.game.timeode.Background.Load;
 import com.game.timeode.Background.Name;
 import com.game.timeode.Background.Start;
 import com.game.timeode.Main;
@@ -18,10 +20,9 @@ import com.game.timeode.Tools.Point2D;
 import com.game.timeode.Background.Scene;
 
 public class GameSc extends Objects implements Screen  {
-
     Main main;
-    public GameSc(Main main,Joystick joy, Fight fig, Player player, Scene scene, PlayButton playButton, Name name, Start start) {
-        super(joy, fig, player, scene, playButton, name, start);
+    public GameSc(Main main, Joystick joy, Fight fig, Player player, Scene scene, PlayButton playButton, Name name, Start start, Load load, Boxes box) {
+        super(joy, fig, player, scene, playButton, name, start, load, box);
         this.main = main;
     }
 
@@ -130,14 +131,24 @@ public class GameSc extends Objects implements Screen  {
     public void GameUpdate() {
         player.setDirection(joy.getDir());
         player.update();
+        box.update();
     }
 
+    boolean d = false;
     public void GameRender(SpriteBatch batch){
+        ThreadLoad threadLoad = new ThreadLoad();
         if (PlayButton.play) {
-            scene.draw(batch);
-            player.draw(batch);
-            joy.draw(batch);
-            fig.draw(batch);
+            load.draw(batch);
+            if (!ThreadFlag) {
+                threadLoad.start();
+            }
+            if (d) {
+                scene.draw(batch);
+                box.draw(batch);
+                player.draw(batch);
+                joy.draw(batch);
+                fig.draw(batch);
+            }
         }else {
             start.draw(batch);
             playButton.draw(batch);
@@ -153,6 +164,8 @@ public class GameSc extends Objects implements Screen  {
         playButton = new PlayButton(Main.Play,new Point2D(21*Main.WIDTH/64,Main.HEIGHT/20),250, 700);
         name = new Name(Main.Name,new Point2D(Main.WIDTH/5,3*Main.HEIGHT/4),1400,250);
         start = new Start(Main.PlayOut,new Point2D(0,0),Main.WIDTH,Main.HEIGHT);
+        load = new Load(Main.Load,new Point2D(0,0),Main.WIDTH,Main.HEIGHT);
+        box = new Boxes(Main.Box1,new Point2D(7.77f*Main.WIDTH/10.5f,3*Main.HEIGHT/4.875f),10,Main.HEIGHT/4.5f,Main.WIDTH/10f);
     }
 
     public void multitouch(float x, float y, boolean isDownTouch, int pointer){
@@ -172,5 +185,16 @@ public class GameSc extends Objects implements Screen  {
     public void setX(Point2D a, float x){
         a.setX(x);
     }
-
+    private boolean ThreadFlag = false;
+    class ThreadLoad extends Thread{
+        @Override
+        public void run(){
+            try {
+                Thread.sleep(1500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            d = true;
+        }
+    }
 }

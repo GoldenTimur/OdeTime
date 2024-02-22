@@ -11,6 +11,7 @@ public class PlayButton {
     float ASquare, BSquare;
     private int pointer = -1;
     Point2D direction;
+    boolean ThreedFlagLoad = false;
 
     public PlayButton(Texture simg, Point2D point, float A, float B) {
         SquareImg = simg;
@@ -35,5 +36,13 @@ public class PlayButton {
         if (this.pointer != -1){
             this.pointer = -1;
         }
+    }
+
+    public boolean isThreedFlagLoad() {
+        return ThreedFlagLoad;
+    }
+
+    public void setThreedFlagLoad(boolean threedFlagLoad) {
+        ThreedFlagLoad = threedFlagLoad;
     }
 }

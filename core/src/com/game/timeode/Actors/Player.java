@@ -16,9 +16,10 @@ public class Player extends Actor{
 
     private float health;
     Texture imgfig;
-    boolean d = true;
+    boolean ThreadFlag = true;
     public static boolean h = false;
     private GameSc gameSc;
+    private int x = 115,y = 225;
 
     public Player(Texture imgwalk, Texture imgfig, Point2D position, float speed, float A, float B, float health) {
         super(imgwalk, position, speed, A, B);
@@ -29,17 +30,10 @@ public class Player extends Actor{
 
     @Override
     public void draw(SpriteBatch batch) {
-        int x,y;
-        if(Fight.fighter && Joystick.ler){
-            x = 300;
-            y = 200;
-        }else if(Fight.fighter){
-            x = 300;
-            y = 200;
-        }else {
+
+        if (!Fight.fighter){
             x = 115;
             y = 225;
-
         }
 
         batch.draw(img,position.getX(),position.getY(), x, y);
@@ -82,8 +76,8 @@ public class Player extends Actor{
         }
     }
     public void fight(Texture img, Texture img1, Texture img1_1, Texture img2, Texture img3){
-        if (d){
-            d = false;
+        if (ThreadFlag){
+            ThreadFlag = false;
             MyThreed threed = new MyThreed();
             threed.start();
         }
@@ -102,12 +96,18 @@ public class Player extends Actor{
         public void run(){
             if (Joystick.ler){
                 setImg(Main.actorFight1_1);
+                x = 300;
+                y = 200;
             }else {
                 setImg(Main.actorFight1);
+                setPosition(new Point2D(-185,0));
+                x = 300;
+                y = 200;
             }
 
+
             try {
-                Thread.sleep(150);
+                Thread.sleep(170);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -119,7 +119,7 @@ public class Player extends Actor{
             }
 
             try {
-                Thread.sleep(50);
+                Thread.sleep(70);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -131,19 +131,23 @@ public class Player extends Actor{
             }
 
             try {
-                Thread.sleep(50);
+                Thread.sleep(70);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
+            }
+
+            if (!Joystick.ler) {
+                setPosition(new Point2D(185, 0));
             }
 
             Fight.fighter = false;
-            d = true;
+
             try {
-                Thread.sleep(100);
+                Thread.sleep(250);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-
+            ThreadFlag = true;
             h = true;
         }
     }

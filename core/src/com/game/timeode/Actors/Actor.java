@@ -26,4 +26,8 @@ public abstract class Actor extends GraphicsObj {
     public void setDirection(Point2D dir){
         this.direction = dir;
     }
+
+    public void setPosition(Point2D pos) {
+        this.position = new Point2D(position.getX()+pos.getX(),position.getY());;
+    }
 }
