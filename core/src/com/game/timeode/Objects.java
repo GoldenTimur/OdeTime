@@ -20,8 +20,10 @@ public abstract class Objects implements Interface{
     protected Start start;
     protected Load load;
     protected Boxes box;
+    protected Boxes wallLiane;
 
-    public Objects(Joystick joy, Fight fig, Player player, Scene scene, PlayButton playButton, Name name, Start start, Load load, Boxes box) {
+
+    public Objects(Joystick joy, Fight fig, Player player, Scene scene, PlayButton playButton, Name name, Start start, Load load, Boxes box, Boxes wallLiane) {
         this.joy = joy;
         this.fig = fig;
         this.player = player;
@@ -31,6 +33,7 @@ public abstract class Objects implements Interface{
         this.start = start;
         this.load = load;
         this.box = box;
+        this.wallLiane = wallLiane;
     }
 
 
@@ -68,5 +71,9 @@ public abstract class Objects implements Interface{
 
     public Boxes getBox() {
         return box;
+    }
+
+    public Boxes getWallLiane() {
+        return wallLiane;
     }
 }

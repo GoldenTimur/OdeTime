@@ -20,5 +20,6 @@ public interface Interface {
     Start start = null;
     Load load = null;
     Boxes box = null;
+    Boxes wallLiane = null;
 
 }

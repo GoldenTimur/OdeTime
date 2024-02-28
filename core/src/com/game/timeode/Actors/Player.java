@@ -9,6 +9,7 @@ import com.game.timeode.Screens.GameSc;
 import com.game.timeode.Tools.Fight;
 import com.game.timeode.Tools.Joystick;
 import com.game.timeode.Tools.Point2D;
+import com.game.timeode.Tools.Square;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,28 +20,33 @@ public class Player extends Actor{
     boolean ThreadFlag = true;
     public static boolean h = false;
     private GameSc gameSc;
-    private int x = 115,y = 225;
+    private float x,y;
 
     public Player(Texture imgwalk, Texture imgfig, Point2D position, float speed, float A, float B, float health) {
         super(imgwalk, position, speed, A, B);
         this.health = health;
         this.imgfig = imgfig;
         this.gameSc = Main.gameSc;
+        this.x = A;
+        this.y = B;
+
     }
 
     @Override
     public void draw(SpriteBatch batch) {
 
         if (!Fight.fighter){
-            x = 115;
-            y = 225;
+            this.x = A;
+            this.y = B;
         }
 
         batch.draw(img,position.getX(),position.getY(), x, y);
     }
+    private boolean flagBox = true;
 
     @Override
     public void update() {
+        bounds = new Square(A,B,this.position);
         if(position.getX()+A+Main.WIDTH/100 > Main.WIDTH){
             position.setX(Main.WIDTH-A-Main.WIDTH/100);
             if (gameSc.ObjGetX(gameSc.getScene())>-Main.HEIGHT*2.75f) {
@@ -76,6 +82,18 @@ public class Player extends Actor{
         }else if(!Fight.fighter) {
             setImg(Main.actor1);
         }
+
+        if (flagBox && Fight.fighter && bounds.isContains(gameSc.getBox().getPosition(),gameSc.getBox().bounds)) {
+            flagBox = false;
+            if (Joystick.ler) {
+                gameSc.getBox().walkBox(15.3f * gameSc.getBox().A / 16, 0);
+            } else {
+                gameSc.getBox().walkBox(-15.3f * gameSc.getBox().A / 16, 0);
+            }
+        }
+        if (bounds.isContains(gameSc.getWallLiane().getPosition(),gameSc.getWallLiane().bounds)){
+            stop();
+        }
     }
     public void fight(Texture img, Texture img1, Texture img1_1, Texture img2, Texture img3){
         if (ThreadFlag){
@@ -92,6 +110,9 @@ public class Player extends Actor{
     }
     public void walk(Texture img1){
         setImg(img1);
+    }
+    public void stop(){
+        position.setPoint(position.getX()-Main.WIDTH/270,position.getY());
     }
     class MyThreed extends Thread{
         @Override
@@ -151,6 +172,7 @@ public class Player extends Actor{
             }
             ThreadFlag = true;
             h = true;
+            flagBox = true;
         }
     }
 }

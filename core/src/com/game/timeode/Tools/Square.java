@@ -10,9 +10,9 @@ public class Square {
     public Point2D pos;
 
     public boolean isContains(Point2D point){
-        float w1 = pos.getX()+b;
+        float w1 = pos.getX()+a;
         float w2 = pos.getX();
-        float h1 = pos.getY()+a;
+        float h1 = pos.getY()+b;
         float h2 = pos.getY();
         float p1 = point.getX();
         float p2 = point.getY();
@@ -22,13 +22,20 @@ public class Square {
         }
             return q;
     }
-
-//    public boolean Overlaps(Circle c){
-//        float dx = pos.getX() - c.pos.getX();
-//        float dy = pos.getY() - c.pos.getY();
-//        float dist = dx*dx+dy*dy;
-//        float sumR = c.A+A;
-//        return dist < sumR*sumR;
-//    }
+    public boolean isContains(Point2D point,Square bounds){
+        float w1 = pos.getX()+a;
+        float w2 = pos.getX();
+        float h1 = pos.getY()+b;
+        float h2 = pos.getY();
+        float p1 = point.getX();
+        float p2 = point.getY();
+        float b1 = bounds.a;
+        float b2 = bounds.b;
+        boolean q = false;
+        if (w2<=p1 && p1<=w1 && h2<=p2 && p2<=h1 || p1<=w2 && w2<=p1+b1 && p2<=h2 && h2<=p2+b2 ||   w2<=p1+b1 && p1+b1<=w1 && h2<=p2 && p2<=h1 || p1<=w1 && w1<=p1+b1 && p2<=h2 && h2<=p2+b2){
+            q = true;
+        }
+        return q;
+    }
 
 }

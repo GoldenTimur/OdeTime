@@ -22,7 +22,7 @@ public class PlayButton {
     }
 
     public void draw(SpriteBatch batch){
-        batch.draw(SquareImg,SquareBounds.pos.getX(),SquareBounds.pos.getY(),BSquare,ASquare);
+        batch.draw(SquareImg,SquareBounds.pos.getX(),SquareBounds.pos.getY(),ASquare,BSquare);
     }
 
     public void update(float x, float y, boolean isDownTouch, int pointer){

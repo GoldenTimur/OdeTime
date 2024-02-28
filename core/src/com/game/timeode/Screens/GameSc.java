@@ -22,8 +22,8 @@ import com.game.timeode.Background.Scene;
 
 public class GameSc extends Objects implements Screen  {
     Main main;
-    public GameSc(Main main, Joystick joy, Fight fig, Player player, Scene scene, PlayButton playButton, Name name, Start start, Load load, Boxes box) {
-        super(joy, fig, player, scene, playButton, name, start, load, box);
+    public GameSc(Main main, Joystick joy, Fight fig, Player player, Scene scene, PlayButton playButton, Name name, Start start, Load load, Boxes box, Boxes wallLiane) {
+        super(joy, fig, player, scene, playButton, name, start, load, box, wallLiane);
         this.main = main;
     }
 
@@ -133,40 +133,88 @@ public class GameSc extends Objects implements Screen  {
         player.setDirection(joy.getDir());
         player.update();
         box.update();
+        wallLiane.update();
     }
 
-    boolean d = false;
+    public static int a = 0;
+    private boolean d = true;
     public void GameRender(SpriteBatch batch){
-        ThreadLoad threadLoad = new ThreadLoad();
         if (PlayButton.play) {
-            load.draw(batch);
-            if (!ThreadFlag) {
-                threadLoad.start();
-            }
             if (d) {
-                scene.draw(batch);
-                box.draw(batch);
-                player.draw(batch);
-                joy.draw(batch);
-                fig.draw(batch);
+                load(batch);
+            }else {
+                switch (a) {
+                    case (1):
+                        level1(batch);
+                        break;
+                    case (2):
+                        level2(batch);
+                        break;
+                    case (3):
+                        level3(batch);
+                        break;
+                    case (4):
+                        level4(batch);
+                        break;
+                    case (5):
+                        level5(batch);
+                        break;
+                }
             }
-        }else {
-            start.draw(batch);
-            playButton.draw(batch);
-            name.draw(batch);
+
+
+        } else {
+            startWindow(batch);
         }
     }
+    public void setA(){
+        a++;
+    }
+    public void load(SpriteBatch batch){
+        load.draw(batch);
+        ThreadLoad threadLoad = new ThreadLoad();
+        if (ThreadFlag) {
+        threadLoad.start();
+        }
+    }
+    public void startWindow(SpriteBatch batch){
+        start.draw(batch);
+        playButton.draw(batch);
+        name.draw(batch);
+    }
+    public void level1(SpriteBatch batch){
+        scene.draw(batch);
+        box.draw(batch);
+        wallLiane.draw(batch);
+        player.draw(batch);
+        joy.draw(batch);
+        fig.draw(batch);
+    }
+    public void level2(SpriteBatch batch){
+
+    }
+    public void level3(SpriteBatch batch){
+
+    }
+    public void level4(SpriteBatch batch){
+
+    }
+    public void level5(SpriteBatch batch){
+
+    }
+
 
     public void  loadActors(){
         joy = new Joystick(Main.circle1,Main.circle2,new Point2D(250,250),Main.HEIGHT/3);
-        player = new Player(Main.actor1,Main.actorFight1,new Point2D(Main.WIDTH/2,Main.HEIGHT/2),7,Main.HEIGHT/10,Main.WIDTH/10,20);
+        player = new Player(Main.actor1,Main.actorFight1,new Point2D(Main.WIDTH/2,Main.HEIGHT/2),7,Main.WIDTH/20,Main.HEIGHT/5,20);
         fig = new Fight(Main.circle3,new Point2D(1950,250),Main.HEIGHT/3);
-        scene = new Scene(Main.Scene2,new Point2D(0,0), Main.HEIGHT*5, Main.HEIGHT);
-        playButton = new PlayButton(Main.Play,new Point2D(21*Main.WIDTH/64,Main.HEIGHT/20),250, 700);
+        scene = new Scene(Main.Scene2,new Point2D(0,0), Main.HEIGHT*5.45f, Main.HEIGHT);
+        playButton = new PlayButton(Main.Play,new Point2D(21*Main.WIDTH/64,Main.HEIGHT/20),700,250);
         name = new Name(Main.Name,new Point2D(Main.WIDTH/5,3*Main.HEIGHT/4),1400,250);
         start = new Start(Main.PlayOut,new Point2D(0,0),Main.WIDTH,Main.HEIGHT);
         load = new Load(Main.Load,new Point2D(0,0),Main.WIDTH,Main.HEIGHT);
-        box = new Boxes(Main.Box1,new Point2D(7.77f*Main.WIDTH/10.5f,3*Main.HEIGHT/4.875f),10,Main.HEIGHT/4.5f,Main.WIDTH/10f);
+        box = new Boxes(Main.Box1,new Point2D(7.38f*Main.WIDTH/10.5f,3*Main.HEIGHT/4.875f),10,Main.WIDTH/9.2f,Main.HEIGHT/4.5f);
+        wallLiane = new Boxes(Main.WallLiane1,new Point2D(Main.WIDTH/1.05f,-100),1,Main.WIDTH/20,Main.HEIGHT*1.2f);
     }
 
     public void multitouch(float x, float y, boolean isDownTouch, int pointer){
@@ -187,16 +235,18 @@ public class GameSc extends Objects implements Screen  {
     public void setX(Point2D a, float x){
         a.setX(x);
     }
-    private boolean ThreadFlag = false;
+    private boolean ThreadFlag = true;
     class ThreadLoad extends Thread{
         @Override
         public void run(){
+            ThreadFlag = false;
+            setA();
             try {
                 Thread.sleep(1500);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            d = true;
+            d = false;
         }
     }
 }

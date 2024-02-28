@@ -14,11 +14,15 @@ public class Boxes extends Actor{
 
     @Override
     public void draw(SpriteBatch batch) {
-        batch.draw(img,position.getX(),position.getY(), B, A);
+        batch.draw(img,position.getX(),position.getY(), A, B);
     }
 
     @Override
     public void update() {
 
+    }
+
+    public void walkBox(float x, float y) {
+        this.position = new Point2D(this.position.getX()+x,this.position.getY()+y);
     }
 }
