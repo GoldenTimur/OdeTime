@@ -1,6 +1,7 @@
 package com.game.timeode;
 
 import com.game.timeode.Actors.Boxes;
+import com.game.timeode.Actors.Plate;
 import com.game.timeode.Actors.Player;
 import com.game.timeode.Background.Load;
 import com.game.timeode.Background.Name;
@@ -21,9 +22,10 @@ public abstract class Objects implements Interface{
     protected Load load;
     protected Boxes box;
     protected Boxes wallLiane;
+    protected Plate plate;
 
 
-    public Objects(Joystick joy, Fight fig, Player player, Scene scene, PlayButton playButton, Name name, Start start, Load load, Boxes box, Boxes wallLiane) {
+    public Objects(Joystick joy, Fight fig, Player player, Scene scene, PlayButton playButton, Name name, Start start, Load load, Boxes box, Boxes wallLiane, Plate plate) {
         this.joy = joy;
         this.fig = fig;
         this.player = player;
@@ -34,6 +36,7 @@ public abstract class Objects implements Interface{
         this.load = load;
         this.box = box;
         this.wallLiane = wallLiane;
+        this.plate = plate;
     }
 
 
@@ -75,5 +78,8 @@ public abstract class Objects implements Interface{
 
     public Boxes getWallLiane() {
         return wallLiane;
+    }
+    public Plate getPlate() {
+        return plate;
     }
 }

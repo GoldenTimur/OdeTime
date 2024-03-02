@@ -1,6 +1,7 @@
 package com.game.timeode;
 
 import com.game.timeode.Actors.Boxes;
+import com.game.timeode.Actors.Plate;
 import com.game.timeode.Actors.Player;
 import com.game.timeode.Background.Load;
 import com.game.timeode.Background.Name;
@@ -21,5 +22,6 @@ public interface Interface {
     Load load = null;
     Boxes box = null;
     Boxes wallLiane = null;
+    Plate plate = null;
 
 }

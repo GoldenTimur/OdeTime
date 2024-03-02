@@ -47,25 +47,27 @@ public class Player extends Actor{
     @Override
     public void update() {
         bounds = new Square(A,B,this.position);
-        if(position.getX()+A+Main.WIDTH/100 > Main.WIDTH){
-            position.setX(Main.WIDTH-A-Main.WIDTH/100);
+        if(position.getX()+A+Main.WIDTH/45 > Main.WIDTH){
+            position.setX(Main.WIDTH-A-Main.WIDTH/45);
             if (gameSc.ObjGetX(gameSc.getScene())>-Main.HEIGHT*2.75f) {
                 gameSc.walk(gameSc.getScene(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getBox(),-direction.getX() * speed, 0);
+                gameSc.walk(gameSc.getWallLiane(),-direction.getX() * speed, 0);
             }
         }
-        if(position.getX()-Main.WIDTH/100 < 0){
-            position.setX(Main.WIDTH/100);
+        if(position.getX()-Main.WIDTH/45 < 0){
+            position.setX(Main.WIDTH/45);
             if (gameSc.ObjGetX(gameSc.getScene())<0) {
                 gameSc.walk(gameSc.getScene(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getBox(),-direction.getX() * speed, 0);
+                gameSc.walk(gameSc.getWallLiane(),-direction.getX() * speed, 0);
             }
         }
-        if(position.getY()+B+Main.HEIGHT/100 > Main.HEIGHT){
-            position.setY(Main.HEIGHT-B-Main.HEIGHT/100);
+        if(position.getY()+B+Main.HEIGHT/90 > Main.HEIGHT){
+            position.setY(Main.HEIGHT-B-Main.HEIGHT/90);
         }
-        if(position.getY()-Main.HEIGHT/100 < 0){
-            position.setY(Main.HEIGHT/100);
+        if(position.getY()-Main.HEIGHT/90 < 0){
+            position.setY(Main.HEIGHT/90);
         }
 
         if (!Fight.fighter) {
