@@ -168,7 +168,6 @@ public class GameSc extends Objects implements Screen  {
         } else {
             startWindow(batch);
         }
-        plate.draw(batch);
     }
     public void setA(){
         a++;
@@ -188,12 +187,14 @@ public class GameSc extends Objects implements Screen  {
     }
     public void level1(SpriteBatch batch){
         scene.draw(batch);
+        plate.draw(batch);
         box.draw(batch);
-        wallLiane.draw(batch);
+        if (!getBox().isTouch()){
+            wallLiane.draw(batch);
+        }
         player.draw(batch);
         joy.draw(batch);
         fig.draw(batch);
-
     }
     public void level2(SpriteBatch batch){
 
@@ -220,7 +221,7 @@ public class GameSc extends Objects implements Screen  {
         load = new Load(Main.Load,new Point2D(0,0),Main.WIDTH,Main.HEIGHT);
         box = new Boxes(Main.Box1,new Point2D(11.7f*Main.WIDTH/10.5f,3*Main.HEIGHT/4.875f),10,Main.WIDTH/9.2f,Main.HEIGHT/4.5f);
         wallLiane = new Boxes(Main.WallLiane1,new Point2D(Main.WIDTH/0.5f,-100),1,Main.WIDTH/20,Main.HEIGHT*1.2f);
-        plate = new Plate(Main.Plane1,new Point2D(11.7f*Main.WIDTH/10.5f,3*Main.HEIGHT/4.875f),10,Main.WIDTH/9.2f,Main.HEIGHT/4.5f);
+        plate = new Plate(Main.Plane1,new Point2D(15f*Main.WIDTH/10.5f,3*Main.HEIGHT/4.875f),10,Main.WIDTH/9.2f,Main.HEIGHT/4.5f);
     }
 
     public void multitouch(float x, float y, boolean isDownTouch, int pointer){

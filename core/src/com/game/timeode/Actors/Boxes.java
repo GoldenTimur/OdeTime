@@ -11,6 +11,7 @@ public class Boxes extends Actor{
         this.x = position.getX();
         this.y = position.getY();
     }
+    private boolean touch = false;
 
     @Override
     public void draw(SpriteBatch batch) {
@@ -23,6 +24,16 @@ public class Boxes extends Actor{
     }
 
     public void walkBox(float x, float y) {
-        this.position = new Point2D(this.position.getX()+x,this.position.getY()+y);
+        if (!touch){
+            this.position = new Point2D(this.position.getX() + x, this.position.getY() + y);
+        }
+    }
+
+    public boolean isTouch() {
+        return touch;
+    }
+
+    public void setTouch(boolean touch) {
+        this.touch = touch;
     }
 }

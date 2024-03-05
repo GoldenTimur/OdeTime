@@ -2,6 +2,8 @@ package com.game.timeode.Actors;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.game.timeode.GraphicsObj.GraphicsObj;
+import com.game.timeode.Main;
+import com.game.timeode.Screens.GameSc;
 import com.game.timeode.Tools.Circle;
 import com.game.timeode.Tools.Point2D;
 import com.game.timeode.Tools.Square;
@@ -10,7 +12,7 @@ public abstract class Actor extends GraphicsObj {
     public float speed,A,B;
     public Square bounds;
     public Point2D direction;
-
+    public GameSc gameSc = Main.gameSc;
     public Actor(Texture img, Point2D position, float speed, float A, float B) {
         super(img);
         this.position = new Point2D(position);
@@ -27,5 +29,9 @@ public abstract class Actor extends GraphicsObj {
 
     public void setPosition(Point2D pos) {
         this.position = new Point2D(position.getX()+pos.getX(),position.getY());;
+    }
+
+    public Square getBounds() {
+        return bounds;
     }
 }

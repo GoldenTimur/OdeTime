@@ -19,16 +19,18 @@ public class Player extends Actor{
     Texture imgfig;
     boolean ThreadFlag = true;
     public static boolean h = false;
-    private GameSc gameSc;
     private float x,y;
+    private final float x1,y1;
+
 
     public Player(Texture imgwalk, Texture imgfig, Point2D position, float speed, float A, float B, float health) {
         super(imgwalk, position, speed, A, B);
         this.health = health;
         this.imgfig = imgfig;
-        this.gameSc = Main.gameSc;
         this.x = A;
         this.y = B;
+        this.x1 = A;
+        this.y1 = B;
 
     }
 
@@ -53,6 +55,7 @@ public class Player extends Actor{
                 gameSc.walk(gameSc.getScene(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getBox(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getWallLiane(),-direction.getX() * speed, 0);
+                gameSc.walk(gameSc.getPlate(),-direction.getX() * speed, 0);
             }
         }
         if(position.getX()-Main.WIDTH/45 < 0){
@@ -61,6 +64,7 @@ public class Player extends Actor{
                 gameSc.walk(gameSc.getScene(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getBox(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getWallLiane(),-direction.getX() * speed, 0);
+                gameSc.walk(gameSc.getPlate(),-direction.getX() * speed, 0);
             }
         }
         if(position.getY()+B+Main.HEIGHT/90 > Main.HEIGHT){
@@ -123,11 +127,15 @@ public class Player extends Actor{
                 setImg(Main.actorFight1_1);
                 x = 300;
                 y = 200;
+                A = x;
+                B = y;
             }else {
                 setImg(Main.actorFight1);
                 setPosition(new Point2D(-185,0));
                 x = 300;
                 y = 200;
+                A = x;
+                B = y;
             }
 
 
@@ -164,7 +172,8 @@ public class Player extends Actor{
             if (!Joystick.ler) {
                 setPosition(new Point2D(185, 0));
             }
-
+            A = x1;
+            B = y1;
             Fight.fighter = false;
 
             try {

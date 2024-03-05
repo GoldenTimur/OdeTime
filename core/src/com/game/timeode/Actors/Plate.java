@@ -16,6 +16,5 @@ public class Plate extends Actor {
     }
     @Override
     public void update() {
-
     }
 }
