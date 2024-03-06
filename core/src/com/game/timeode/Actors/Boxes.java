@@ -20,7 +20,9 @@ public class Boxes extends Actor{
 
     @Override
     public void update() {
-
+//        if (!touch && bounds.isContains(gameSc.getBox().getPosition(),gameSc.getBox().getBounds())){
+//            touch = true;
+//        }
     }
 
     public void walkBox(float x, float y) {
