@@ -3,6 +3,7 @@ package com.game.timeode.Actors;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.timeode.Tools.Point2D;
+import com.game.timeode.Tools.Square;
 
 public class Boxes extends Actor{
 
@@ -15,19 +16,22 @@ public class Boxes extends Actor{
 
     @Override
     public void draw(SpriteBatch batch) {
-        batch.draw(img,position.getX(),position.getY(), A, B);
+        batch.draw(img,this.x,this.y, A, B);
     }
-
     @Override
     public void update() {
-//        if (!touch && bounds.isContains(gameSc.getBox().getPosition(),gameSc.getBox().getBounds())){
-//            touch = true;
-//        }
+        setBounds(new Square(A,B,this.position));
+        this.x = position.getX();
+        this.y = position.getY();
+        System.out.println("Box:"+this.x+" "+this.y+" "+position.getX()+" "+position.getY());
+        if (!touch && bounds.isContains(gameSc.getPlate().getBounds())){
+            touch = true;
+        }
     }
 
     public void walkBox(float x, float y) {
         if (!touch){
-            this.position = new Point2D(this.position.getX() + x, this.position.getY() + y);
+            position = new Point2D(position.getX() + x, position.getY() + y);
         }
     }
 

@@ -16,7 +16,7 @@ import com.game.timeode.Tools.Joystick;
 import com.game.timeode.Tools.PlayButton;
 
 public class Main extends Game implements Interface {
-	public static SpriteBatch batch,batch1;
+	public static SpriteBatch batch;
 	public static int WIDTH,HEIGHT;
 	public static boolean time = false;
 	public static GameSc gameSc;
@@ -26,7 +26,6 @@ public class Main extends Game implements Interface {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		batch1 = new SpriteBatch();
 		WIDTH = Gdx.graphics.getWidth();
 		HEIGHT = Gdx.graphics.getHeight();
 		circle1 = new Texture("Joystick1.png");
@@ -56,10 +55,6 @@ public class Main extends Game implements Interface {
 
 	@Override
 	public void dispose () {
-		if(PlayButton.play) {
-			batch.dispose();
-		}else {
-			batch1.dispose();
-		}
+		batch.dispose();
 	}
 }

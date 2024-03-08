@@ -48,7 +48,7 @@ public class Player extends Actor{
 
     @Override
     public void update() {
-        bounds = new Square(A,B,this.position);
+        setBounds(new Square(A,B,this.position));
         if(position.getX()+A+Main.WIDTH/45 > Main.WIDTH){
             position.setX(Main.WIDTH-A-Main.WIDTH/45);
             if (gameSc.ObjGetX(gameSc.getScene())>-Main.HEIGHT*2.75f) {
@@ -79,9 +79,9 @@ public class Player extends Actor{
         }
 
         if(!Fight.fighter){
-            walk(Main.actor1);
+            walk();
         }else {
-            fight(Main.actor1, Main.actorFight1, Main.actorFight1_1, Main.actorFight2, Main.actorFight3);
+            fight();
         }
         if (Joystick.ler && !Fight.fighter){
             setImg(Main.actor1_1);
@@ -89,7 +89,7 @@ public class Player extends Actor{
             setImg(Main.actor1);
         }
 
-        if (flagBox && Fight.fighter && bounds.isContains(gameSc.getBox().getPosition(),gameSc.getBox().bounds)) {
+        if (flagBox && Fight.fighter && bounds.isContains(gameSc.getBox().bounds)) {
             flagBox = false;
             if (Joystick.ler) {
                 gameSc.getBox().walkBox(15.3f * gameSc.getBox().A / 16, 0);
@@ -97,11 +97,11 @@ public class Player extends Actor{
                 gameSc.getBox().walkBox(-15.3f * gameSc.getBox().A / 16, 0);
             }
         }
-        if (bounds.isContains(gameSc.getWallLiane().getPosition(),gameSc.getWallLiane().bounds)){
+        if (!gameSc.getBox().isTouch() && bounds.isContains(gameSc.getWallLiane().bounds)){
             stop();
         }
     }
-    public void fight(Texture img, Texture img1, Texture img1_1, Texture img2, Texture img3){
+    public void fight(){
         if (ThreadFlag){
             ThreadFlag = false;
             MyThreed threed = new MyThreed();
@@ -114,8 +114,8 @@ public class Player extends Actor{
 //        setImg(img);
 
     }
-    public void walk(Texture img1){
-        setImg(img1);
+    public void walk(){
+        setImg(Main.actor1);
     }
     public void stop(){
         position.setPoint(position.getX()-Main.WIDTH/270,position.getY());

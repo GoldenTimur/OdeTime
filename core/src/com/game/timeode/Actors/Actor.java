@@ -34,4 +34,8 @@ public abstract class Actor extends GraphicsObj {
     public Square getBounds() {
         return bounds;
     }
+
+    public void setBounds(Square bounds) {
+        this.bounds = bounds;
+    }
 }

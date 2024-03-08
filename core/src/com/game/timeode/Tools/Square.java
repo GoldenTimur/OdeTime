@@ -22,7 +22,13 @@ public class Square {
         }
             return q;
     }
-    public boolean isContains(Point2D point,Square bounds){
+
+    public Point2D getPos() {
+        return pos;
+    }
+
+    public boolean isContains(Square bounds){
+        Point2D point = bounds.getPos();
         float w1 = pos.getX()+a;
         float w2 = pos.getX();
         float h1 = pos.getY()+b;
@@ -33,6 +39,22 @@ public class Square {
         float b2 = bounds.b;
         boolean q = false;
         if (w2<=p1 && p1<=w1 && h2<=p2 && p2<=h1 || p1<=w2 && w2<=p1+b1 && p2<=h2 && h2<=p2+b2 ||   w2<=p1+b1 && p1+b1<=w1 && h2<=p2 && p2<=h1 || p1<=w1 && w1<=p1+b1 && p2<=h2 && h2<=p2+b2){
+            q = true;
+        }
+        return q;
+    }
+    public boolean isContainsInside(Square bounds){
+        Point2D point = bounds.getPos();
+        float w1 = pos.getX()+a;
+        float w2 = pos.getX();
+        float h1 = pos.getY()+b;
+        float h2 = pos.getY();
+        float p1 = point.getX();
+        float p2 = point.getY();
+        float b1 = bounds.a;
+        float b2 = bounds.b;
+        boolean q = false;
+        if (w2<=p1 && p1<=w1 && h2<=p2 && p2<=h1 && w2<=p1+b1 && p1+b1<=w1 && h2<=p2 && p2<=h1 || p1<=w2 && w2<=p1+b1 && p2<=h2 && h2<=p2+b2  && p1<=w1 && w1<=p1+b1 && p2<=h2 && h2<=p2+b2){
             q = true;
         }
         return q;

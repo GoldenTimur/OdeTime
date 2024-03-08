@@ -92,15 +92,9 @@ public class GameSc extends Objects implements Screen  {
     public void render(float delta) {
         GameUpdate();
         ScreenUtils.clear(0.259f, 0.667f, 1, 1);
-        if (PlayButton.play){
-            Main.batch.begin();
-            GameRender(Main.batch);
-            Main.batch.end();
-        } else {
-            Main.batch1.begin();
-            GameRender(Main.batch1);
-            Main.batch1.end();
-        }
+        Main.batch.begin();
+        GameRender(Main.batch);
+        Main.batch.end();
 
 
     }
@@ -133,9 +127,6 @@ public class GameSc extends Objects implements Screen  {
     public void GameUpdate() {
         player.setDirection(joy.getDir());
         player.update();
-        box.update();
-        wallLiane.update();
-        plate.update();
     }
 
     public static int a = 0;
@@ -188,9 +179,12 @@ public class GameSc extends Objects implements Screen  {
     public void level1(SpriteBatch batch){
         scene.draw(batch);
         plate.draw(batch);
+        plate.update();
         box.draw(batch);
+        box.update();
         if (!getBox().isTouch()){
             wallLiane.draw(batch);
+            wallLiane.update();
         }
         player.draw(batch);
         joy.draw(batch);
