@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.game.timeode.Actors.Boxes;
 import com.game.timeode.Actors.Plate;
 import com.game.timeode.Actors.Player;
+import com.game.timeode.Actors.WallLiane;
 import com.game.timeode.Background.Load;
 import com.game.timeode.Background.Name;
 import com.game.timeode.Background.Start;
@@ -23,7 +24,7 @@ import com.game.timeode.Background.Scene;
 
 public class GameSc extends Objects implements Screen  {
     Main main;
-    public GameSc(Main main, Joystick joy, Fight fig, Player player, Scene scene, PlayButton playButton, Name name, Start start, Load load, Boxes box, Boxes wallLiane, Plate plate) {
+    public GameSc(Main main, Joystick joy, Fight fig, Player player, Scene scene, PlayButton playButton, Name name, Start start, Load load, Boxes box, WallLiane wallLiane, Plate plate) {
         super(joy, fig, player, scene, playButton, name, start, load, box, wallLiane, plate);
         this.main = main;
     }
@@ -169,6 +170,7 @@ public class GameSc extends Objects implements Screen  {
         if (ThreadFlag) {
         threadLoad.start();
         }
+        ThreadFlag = true;
 
     }
     public void startWindow(SpriteBatch batch){
@@ -184,8 +186,8 @@ public class GameSc extends Objects implements Screen  {
         box.update();
         if (!getBox().isTouch()){
             wallLiane.draw(batch);
-            wallLiane.update();
         }
+        wallLiane.update();
         player.draw(batch);
         joy.draw(batch);
         fig.draw(batch);
@@ -214,7 +216,7 @@ public class GameSc extends Objects implements Screen  {
         start = new Start(Main.PlayOut,new Point2D(0,0),Main.WIDTH,Main.HEIGHT);
         load = new Load(Main.Load,new Point2D(0,0),Main.WIDTH,Main.HEIGHT);
         box = new Boxes(Main.Box1,new Point2D(11.7f*Main.WIDTH/10.5f,3*Main.HEIGHT/4.875f),10,Main.WIDTH/9.2f,Main.HEIGHT/4.5f);
-        wallLiane = new Boxes(Main.WallLiane1,new Point2D(Main.WIDTH/0.5f,-100),1,Main.WIDTH/20,Main.HEIGHT*1.2f);
+        wallLiane = new WallLiane(Main.WallLiane1,new Point2D(Main.WIDTH/0.5f,-100),1,Main.WIDTH/20,Main.HEIGHT*1.2f);
         plate = new Plate(Main.Plane1,new Point2D(15f*Main.WIDTH/10.5f,3*Main.HEIGHT/4.875f),10,Main.WIDTH/9.2f,Main.HEIGHT/4.5f);
     }
 
@@ -233,6 +235,11 @@ public class GameSc extends Objects implements Screen  {
         float d = b.getX();
         return d;
     }
+
+    public void setD(boolean d) {
+        this.d = d;
+    }
+
     public void setX(Point2D a, float x){
         a.setX(x);
     }

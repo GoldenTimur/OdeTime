@@ -45,16 +45,16 @@ public class Square {
     }
     public boolean isContainsInside(Square bounds){
         Point2D point = bounds.getPos();
-        float w1 = pos.getX()+a;
+        float w1 = pos.getX()+a/2;
         float w2 = pos.getX();
-        float h1 = pos.getY()+b;
+        float h1 = pos.getY()+b/2;
         float h2 = pos.getY();
         float p1 = point.getX();
         float p2 = point.getY();
-        float b1 = bounds.a;
-        float b2 = bounds.b;
+        float b1 = bounds.a/2;
+        float b2 = bounds.b/2;
         boolean q = false;
-        if (w2<=p1 && p1<=w1 && h2<=p2 && p2<=h1 && w2<=p1+b1 && p1+b1<=w1 && h2<=p2 && p2<=h1 || p1<=w2 && w2<=p1+b1 && p2<=h2 && h2<=p2+b2  && p1<=w1 && w1<=p1+b1 && p2<=h2 && h2<=p2+b2){
+        if (w2<=p1+b1 && p1+b1<=w1 && h2<=p2+b2 && p2+b2<=h1 || p1<=w1 && w1<=p1+b1*2 && p2<=h2 && h2<=p2+b2*2){
             q = true;
         }
         return q;

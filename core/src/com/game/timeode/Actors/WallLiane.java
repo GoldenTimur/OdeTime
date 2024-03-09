@@ -5,9 +5,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.timeode.Tools.Point2D;
 import com.game.timeode.Tools.Square;
 
-public class Boxes extends Actor{
-
-    public Boxes(Texture img, Point2D position, float speed, float A, float B) {
+public class WallLiane extends Actor{
+    public WallLiane(Texture img, Point2D position, float speed, float A, float B) {
         super(img, position, speed, A, B);
         this.x = position.getX();
         this.y = position.getY();
@@ -23,23 +22,9 @@ public class Boxes extends Actor{
         setBounds(new Square(A,B,this.position));
         this.x = position.getX();
         this.y = position.getY();
-        System.out.println("Box:"+this.x+" "+this.y+" "+position.getX()+" "+position.getY());
-        if (!touch && bounds.isContainsInside(gameSc.getPlate().getBounds())){
-            touch = true;
+        if (gameSc.getBox().isTouch() && bounds.isContains(gameSc.getPlayer().getBounds())){
+            gameSc.getBox().setTouch(false);
+            gameSc.setD(true);
         }
-    }
-
-    public void walkBox(float x, float y) {
-        if (!touch){
-            position = new Point2D(position.getX() + x, position.getY() + y);
-        }
-    }
-
-    public boolean isTouch() {
-        return touch;
-    }
-
-    public void setTouch(boolean touch) {
-        this.touch = touch;
     }
 }
