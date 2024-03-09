@@ -125,15 +125,15 @@ public class Player extends Actor{
         public void run(){
             if (Joystick.ler){
                 setImg(Main.actorFight1_1);
-                x = 300;
-                y = 200;
+                x = 2.7027f*A;
+                y = 0.9259f*B;
                 A = x;
                 B = y;
             }else {
                 setImg(Main.actorFight1);
                 setPosition(new Point2D(-185,0));
-                x = 300;
-                y = 200;
+                x = 2.7027f*A;
+                y = 0.9259f*B;
                 A = x;
                 B = y;
             }

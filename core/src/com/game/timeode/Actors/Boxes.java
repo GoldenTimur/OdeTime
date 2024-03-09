@@ -23,7 +23,6 @@ public class Boxes extends Actor{
         setBounds(new Square(A,B,this.position));
         this.x = position.getX();
         this.y = position.getY();
-        System.out.println("Box:"+this.x+" "+this.y+" "+position.getX()+" "+position.getY());
         if (!touch && bounds.isContainsInside(gameSc.getPlate().getBounds())){
             touch = true;
         }

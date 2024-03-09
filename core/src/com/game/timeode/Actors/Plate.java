@@ -20,6 +20,5 @@ public class Plate extends Actor {
         setBounds(new Square(A,B,this.position));
         this.x = position.getX();
         this.y = position.getY();
-        System.out.println("Plate: "+this.x+" "+this.y+" "+position.getX()+" "+position.getY());
     }
 }

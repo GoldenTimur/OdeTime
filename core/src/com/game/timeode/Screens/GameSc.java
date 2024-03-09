@@ -170,7 +170,6 @@ public class GameSc extends Objects implements Screen  {
         if (ThreadFlag) {
         threadLoad.start();
         }
-        ThreadFlag = true;
 
     }
     public void startWindow(SpriteBatch batch){
@@ -207,12 +206,12 @@ public class GameSc extends Objects implements Screen  {
 
 
     public void  loadActors(){
-        joy = new Joystick(Main.circle1,Main.circle2,new Point2D(250,250),Main.HEIGHT/3);
+        joy = new Joystick(Main.circle1,Main.circle2,new Point2D(0.11f*Main.WIDTH,0.25f*Main.HEIGHT),Main.HEIGHT/3);
         player = new Player(Main.actor1,Main.actorFight1,new Point2D(Main.WIDTH/2,Main.HEIGHT/2),7,Main.WIDTH/20,Main.HEIGHT/5,20);
-        fig = new Fight(Main.circle3,new Point2D(1950,250),Main.HEIGHT/3);
+        fig = new Fight(Main.circle3,new Point2D(Main.WIDTH/1.125f,0.25f*Main.HEIGHT),Main.HEIGHT/3);
         scene = new Scene(Main.Scene2,new Point2D(0,0), Main.HEIGHT*5.45f, Main.HEIGHT);
-        playButton = new PlayButton(Main.Play,new Point2D(21*Main.WIDTH/64,Main.HEIGHT/20),700,250);
-        name = new Name(Main.Name,new Point2D(Main.WIDTH/5,3*Main.HEIGHT/4),1400,250);
+        playButton = new PlayButton(Main.Play,new Point2D(21*Main.WIDTH/64,Main.HEIGHT/20),0.31f*Main.WIDTH,0.231f*Main.HEIGHT);
+        name = new Name(Main.Name,new Point2D(Main.WIDTH/5,3*Main.HEIGHT/4),0.63f*Main.WIDTH,0.231f*Main.HEIGHT);
         start = new Start(Main.PlayOut,new Point2D(0,0),Main.WIDTH,Main.HEIGHT);
         load = new Load(Main.Load,new Point2D(0,0),Main.WIDTH,Main.HEIGHT);
         box = new Boxes(Main.Box1,new Point2D(11.7f*Main.WIDTH/10.5f,3*Main.HEIGHT/4.875f),10,Main.WIDTH/9.2f,Main.HEIGHT/4.5f);
@@ -255,6 +254,7 @@ public class GameSc extends Objects implements Screen  {
                 throw new RuntimeException(e);
             }
             d = false;
+            ThreadFlag = true;
         }
     }
 }
