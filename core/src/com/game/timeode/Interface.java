@@ -8,6 +8,7 @@ import com.game.timeode.Background.Load;
 import com.game.timeode.Background.Name;
 import com.game.timeode.Background.Scene;
 import com.game.timeode.Background.Start;
+import com.game.timeode.Screens.GameSc;
 import com.game.timeode.Tools.Fight;
 import com.game.timeode.Tools.Joystick;
 import com.game.timeode.Tools.PlayButton;
@@ -17,6 +18,7 @@ public interface Interface {
     Fight fig = null;
     Player player = null;
     Scene scene = null;
+    Scene scene2 = null;
     PlayButton playButton = null;
     Name name = null;
     Start start = null;
@@ -24,5 +26,6 @@ public interface Interface {
     Boxes box = null;
     WallLiane wallLiane = null;
     Plate plate = null;
+    GameSc gameSc = null;
 
 }

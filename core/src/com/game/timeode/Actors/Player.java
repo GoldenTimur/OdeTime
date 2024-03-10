@@ -1,17 +1,12 @@
 package com.game.timeode.Actors;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.timeode.Main;
-import com.game.timeode.Objects;
-import com.game.timeode.Screens.GameSc;
 import com.game.timeode.Tools.Fight;
 import com.game.timeode.Tools.Joystick;
 import com.game.timeode.Tools.Point2D;
 import com.game.timeode.Tools.Square;
-
-import java.util.concurrent.TimeUnit;
 
 public class Player extends Actor{
 
@@ -19,30 +14,29 @@ public class Player extends Actor{
     Texture imgfig;
     boolean ThreadFlag = true;
     public static boolean h = false;
-    private float x,y;
-    private final float x1,y1;
+    private float a, b;
+    private final float constA, constB;
 
 
     public Player(Texture imgwalk, Texture imgfig, Point2D position, float speed, float A, float B, float health) {
         super(imgwalk, position, speed, A, B);
         this.health = health;
         this.imgfig = imgfig;
-        this.x = A;
-        this.y = B;
-        this.x1 = A;
-        this.y1 = B;
-
+        this.a = A;
+        this.b = B;
+        this.constA = A;
+        this.constB = B;
     }
 
     @Override
     public void draw(SpriteBatch batch) {
 
         if (!Fight.fighter){
-            this.x = A;
-            this.y = B;
+            this.a = A;
+            this.b = B;
         }
 
-        batch.draw(img,position.getX(),position.getY(), x, y);
+        batch.draw(img,position.getX(),position.getY(), a, b);
     }
     private boolean flagBox = true;
 
@@ -125,17 +119,17 @@ public class Player extends Actor{
         public void run(){
             if (Joystick.ler){
                 setImg(Main.actorFight1_1);
-                x = 2.7027f*A;
-                y = 0.9259f*B;
-                A = x;
-                B = y;
+                a = 2.7027f*A;
+                b = 0.9259f*B;
+                A = a;
+                B = b;
             }else {
                 setImg(Main.actorFight1);
                 setPosition(new Point2D(-185,0));
-                x = 2.7027f*A;
-                y = 0.9259f*B;
-                A = x;
-                B = y;
+                a = 2.7027f*A;
+                b = 0.9259f*B;
+                A = a;
+                B = b;
             }
 
 
@@ -172,8 +166,8 @@ public class Player extends Actor{
             if (!Joystick.ler) {
                 setPosition(new Point2D(185, 0));
             }
-            A = x1;
-            B = y1;
+            A = constA;
+            B = constB;
             Fight.fighter = false;
 
             try {

@@ -48,7 +48,7 @@ public class Main extends Game implements Interface {
 		Box1 = new Texture("Box2.png");
 		WallLiane1 = new Texture("WallLiane1.png");
 		Plane1 = new Texture("ForBox1.png");
-		gameSc = new GameSc(this, joy, fig, player, scene, playButton, name, start, load, box, wallLiane, plate);
+		gameSc = new GameSc(this, joy, fig, player, scene, scene2, playButton, name, start, load, box, wallLiane, plate);
 		setScreen(gameSc);
 	}
 

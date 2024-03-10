@@ -24,8 +24,8 @@ import com.game.timeode.Background.Scene;
 
 public class GameSc extends Objects implements Screen  {
     Main main;
-    public GameSc(Main main, Joystick joy, Fight fig, Player player, Scene scene, PlayButton playButton, Name name, Start start, Load load, Boxes box, WallLiane wallLiane, Plate plate) {
-        super(joy, fig, player, scene, playButton, name, start, load, box, wallLiane, plate);
+    public GameSc(Main main, Joystick joy, Fight fig, Player player, Scene scene, Scene scene2, PlayButton playButton, Name name, Start start, Load load, Boxes box, WallLiane wallLiane, Plate plate) {
+        super(main,joy, fig, player, scene, scene2, playButton, name, start, load, box, wallLiane, plate);
         this.main = main;
     }
 
@@ -154,6 +154,10 @@ public class GameSc extends Objects implements Screen  {
                         level5(batch);
                         break;
                 }
+                player.draw(batch);
+                joy.draw(batch);
+                fig.draw(batch);
+
             }
 
 
@@ -162,8 +166,15 @@ public class GameSc extends Objects implements Screen  {
         }
     }
     public void setA(){
+        setAllPosition();
+        player.setPosition(200,player.getPosition().getY());
         a++;
     }
+
+    public static int getA() {
+        return a;
+    }
+
     public void load(SpriteBatch batch){
         load.draw(batch);
         ThreadLoad threadLoad = new ThreadLoad();
@@ -187,15 +198,12 @@ public class GameSc extends Objects implements Screen  {
             wallLiane.draw(batch);
         }
         wallLiane.update();
-        player.draw(batch);
-        joy.draw(batch);
-        fig.draw(batch);
     }
     public void level2(SpriteBatch batch){
-
+        scene2.draw(batch);
     }
     public void level3(SpriteBatch batch){
-
+        scene.draw(batch);
     }
     public void level4(SpriteBatch batch){
 
@@ -210,6 +218,7 @@ public class GameSc extends Objects implements Screen  {
         player = new Player(Main.actor1,Main.actorFight1,new Point2D(Main.WIDTH/2,Main.HEIGHT/2),7,Main.WIDTH/20,Main.HEIGHT/5,20);
         fig = new Fight(Main.circle3,new Point2D(Main.WIDTH/1.125f,0.25f*Main.HEIGHT),Main.HEIGHT/3);
         scene = new Scene(Main.Scene2,new Point2D(0,0), Main.HEIGHT*5.45f, Main.HEIGHT);
+        scene2 = new Scene(Main.Scene1,new Point2D(0,0), Main.HEIGHT*5.45f, Main.HEIGHT);
         playButton = new PlayButton(Main.Play,new Point2D(21*Main.WIDTH/64,Main.HEIGHT/20),0.31f*Main.WIDTH,0.231f*Main.HEIGHT);
         name = new Name(Main.Name,new Point2D(Main.WIDTH/5,3*Main.HEIGHT/4),0.63f*Main.WIDTH,0.231f*Main.HEIGHT);
         start = new Start(Main.PlayOut,new Point2D(0,0),Main.WIDTH,Main.HEIGHT);
@@ -233,6 +242,11 @@ public class GameSc extends Objects implements Screen  {
         Point2D b = a.getPosition();
         float d = b.getX();
         return d;
+    }
+    public void setAllPosition(){
+        box.setPosition();
+        plate.setPosition();
+        wallLiane.setPosition();
     }
 
     public void setD(boolean d) {

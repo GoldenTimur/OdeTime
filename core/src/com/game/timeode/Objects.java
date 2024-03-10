@@ -8,6 +8,7 @@ import com.game.timeode.Background.Load;
 import com.game.timeode.Background.Name;
 import com.game.timeode.Background.Scene;
 import com.game.timeode.Background.Start;
+import com.game.timeode.Screens.GameSc;
 import com.game.timeode.Tools.Fight;
 import com.game.timeode.Tools.Joystick;
 import com.game.timeode.Tools.PlayButton;
@@ -17,6 +18,7 @@ public abstract class Objects implements Interface{
     protected Fight fig;
     protected Player player;
     protected Scene scene;
+    protected Scene scene2;
     protected PlayButton playButton;
     protected Name name;
     protected Start start;
@@ -24,13 +26,15 @@ public abstract class Objects implements Interface{
     protected Boxes box;
     protected WallLiane wallLiane;
     protected Plate plate;
+    protected Main main;
 
 
-    public Objects(Joystick joy, Fight fig, Player player, Scene scene, PlayButton playButton, Name name, Start start, Load load, Boxes box, WallLiane wallLiane, Plate plate) {
+    public Objects(Main main, Joystick joy, Fight fig, Player player, Scene scene, Scene scene2, PlayButton playButton, Name name, Start start, Load load, Boxes box, WallLiane wallLiane, Plate plate) {
         this.joy = joy;
         this.fig = fig;
         this.player = player;
         this.scene = scene;
+        this.scene2 = scene2;
         this.playButton = playButton;
         this.name = name;
         this.start = start;
@@ -38,6 +42,7 @@ public abstract class Objects implements Interface{
         this.box = box;
         this.wallLiane = wallLiane;
         this.plate = plate;
+        this.main = main;
     }
 
 
@@ -54,6 +59,12 @@ public abstract class Objects implements Interface{
     }
 
     public Scene getScene() {
+        switch (GameSc.getA()) {
+            case (1):
+                return scene;
+            case (2):
+                return scene2;
+        }
         return scene;
     }
 
@@ -74,13 +85,31 @@ public abstract class Objects implements Interface{
     }
 
     public Boxes getBox() {
+        switch (GameSc.getA()) {
+            case (1):
+                return box;
+            case (2):
+                return box;
+        }
         return box;
     }
 
     public WallLiane getWallLiane() {
+        switch (GameSc.getA()) {
+            case (1):
+                return wallLiane;
+            case (2):
+                return wallLiane;
+        }
         return wallLiane;
     }
     public Plate getPlate() {
+        switch (GameSc.getA()) {
+            case (1):
+                return plate;
+            case (2):
+                return plate;
+        }
         return plate;
     }
 }

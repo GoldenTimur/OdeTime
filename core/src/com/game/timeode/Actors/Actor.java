@@ -13,10 +13,15 @@ public abstract class Actor extends GraphicsObj {
     public Square bounds;
     public Point2D direction;
     public GameSc gameSc = Main.gameSc;
+    public final float constX, constY;
     public Actor(Texture img, Point2D position, float speed, float A, float B) {
         super(img);
         this.position = new Point2D(position);
         this.speed = speed;
+        this.x = position.getX();
+        this.y = position.getY();
+        this.constX = position.getX();
+        this.constY = position.getY();
         this.A = A;
         this.B = B;
         bounds = new Square(A, B, position);
@@ -29,6 +34,12 @@ public abstract class Actor extends GraphicsObj {
 
     public void setPosition(Point2D pos) {
         this.position = new Point2D(position.getX()+pos.getX(),position.getY());;
+    }
+    public void setPosition(float x, float y) {
+        this.position = new Point2D(x,y);
+    }
+    public void setPosition(){
+        this.position = new Point2D(constX,constY);
     }
 
     public Square getBounds() {

@@ -8,8 +8,6 @@ import com.game.timeode.Tools.Square;
 public class Plate extends Actor {
     public Plate(Texture img, Point2D position, float speed, float A, float B) {
         super(img, position, speed, A, B);
-        this.x = position.getX();
-        this.y = position.getY();
     }
     @Override
     public void draw(SpriteBatch batch) {
