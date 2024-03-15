@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.game.timeode.Actors.Boxes;
+import com.game.timeode.Actors.Pit;
 import com.game.timeode.Actors.Plate;
 import com.game.timeode.Actors.Player;
 import com.game.timeode.Actors.WallLiane;
@@ -24,8 +25,8 @@ import com.game.timeode.Background.Scene;
 
 public class GameSc extends Objects implements Screen  {
     Main main;
-    public GameSc(Main main, Joystick joy, Fight fig, Player player, Scene scene, Scene scene2, PlayButton playButton, Name name, Start start, Load load, Boxes box, WallLiane wallLiane, Plate plate) {
-        super(main,joy, fig, player, scene, scene2, playButton, name, start, load, box, wallLiane, plate);
+    public GameSc(Main main, Joystick joy, Fight fig, Player player, Scene scene, Scene scene2, PlayButton playButton, Name name, Start start, Load load, Boxes box, WallLiane wallLiane, Plate plate, Pit pit) {
+        super(main,joy, fig, player, scene, scene2, playButton, name, start, load, box, wallLiane, plate, pit);
         this.main = main;
     }
 
@@ -201,6 +202,8 @@ public class GameSc extends Objects implements Screen  {
     }
     public void level2(SpriteBatch batch){
         scene2.draw(batch);
+        pit.draw(batch);
+        pit.update();
     }
     public void level3(SpriteBatch batch){
         scene.draw(batch);
@@ -226,6 +229,7 @@ public class GameSc extends Objects implements Screen  {
         box = new Boxes(Main.Box1,new Point2D(11.7f*Main.WIDTH/10.5f,3*Main.HEIGHT/4.875f),10,Main.WIDTH/9.2f,Main.HEIGHT/4.5f);
         wallLiane = new WallLiane(Main.WallLiane1,new Point2D(Main.WIDTH/0.5f,-100),1,Main.WIDTH/20,Main.HEIGHT*1.2f);
         plate = new Plate(Main.Plane1,new Point2D(15f*Main.WIDTH/10.5f,3*Main.HEIGHT/4.875f),10,Main.WIDTH/9.2f,Main.HEIGHT/4.5f);
+        pit = new Pit(Main.Pit1,new Point2D(11.7f*Main.WIDTH/10.5f,0),10,Main.WIDTH/9.2f,Main.HEIGHT*1.2f);
     }
 
     public void multitouch(float x, float y, boolean isDownTouch, int pointer){
@@ -247,6 +251,7 @@ public class GameSc extends Objects implements Screen  {
         box.setPosition();
         plate.setPosition();
         wallLiane.setPosition();
+        pit.setPosition();
     }
 
     public void setD(boolean d) {

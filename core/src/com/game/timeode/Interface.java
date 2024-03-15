@@ -1,6 +1,7 @@
 package com.game.timeode;
 
 import com.game.timeode.Actors.Boxes;
+import com.game.timeode.Actors.Pit;
 import com.game.timeode.Actors.Plate;
 import com.game.timeode.Actors.Player;
 import com.game.timeode.Actors.WallLiane;
@@ -27,5 +28,6 @@ public interface Interface {
     WallLiane wallLiane = null;
     Plate plate = null;
     GameSc gameSc = null;
+    Pit pit = null;
 
 }

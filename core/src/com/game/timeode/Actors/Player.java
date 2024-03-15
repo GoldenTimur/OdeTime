@@ -3,6 +3,7 @@ package com.game.timeode.Actors;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.timeode.Main;
+import com.game.timeode.Screens.GameSc;
 import com.game.timeode.Tools.Fight;
 import com.game.timeode.Tools.Joystick;
 import com.game.timeode.Tools.Point2D;
@@ -43,13 +44,14 @@ public class Player extends Actor{
     @Override
     public void update() {
         setBounds(new Square(A,B,this.position));
-        if(position.getX()+A+Main.WIDTH/45 > Main.WIDTH){
-            position.setX(Main.WIDTH-A-Main.WIDTH/45);
+        if(position.getX()+A+Main.WIDTH/20 > Main.WIDTH){
+            position.setX(Main.WIDTH-A-Main.WIDTH/20);
             if (gameSc.ObjGetX(gameSc.getScene())>-Main.HEIGHT*2.75f) {
                 gameSc.walk(gameSc.getScene(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getBox(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getWallLiane(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getPlate(),-direction.getX() * speed, 0);
+                gameSc.walk(gameSc.getPit(),-direction.getX() * speed, 0);
             }
         }
         if(position.getX()-Main.WIDTH/45 < 0){
@@ -59,6 +61,7 @@ public class Player extends Actor{
                 gameSc.walk(gameSc.getBox(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getWallLiane(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getPlate(),-direction.getX() * speed, 0);
+                gameSc.walk(gameSc.getPit(),-direction.getX() * speed, 0);
             }
         }
         if(position.getY()+B+Main.HEIGHT/90 > Main.HEIGHT){
@@ -83,7 +86,7 @@ public class Player extends Actor{
             setImg(Main.actor1);
         }
 
-        if (flagBox && Fight.fighter && bounds.isContains(gameSc.getBox().bounds)) {
+        if (flagBox && Fight.fighter && bounds.isContains(gameSc.getBox().getBounds())) {
             flagBox = false;
             if (Joystick.ler) {
                 gameSc.getBox().walkBox(15.3f * gameSc.getBox().A / 16, 0);
@@ -91,7 +94,10 @@ public class Player extends Actor{
                 gameSc.getBox().walkBox(-15.3f * gameSc.getBox().A / 16, 0);
             }
         }
-        if (!gameSc.getBox().isTouch() && bounds.isContains(gameSc.getWallLiane().bounds)){
+        if (bounds.isContains(gameSc.getPit().getBounds()) && !bounds.isContains(gameSc.getBox().getBounds())){
+            stop();
+        }
+        if (!gameSc.getBox().isTouch() && bounds.isContains(gameSc.getWallLiane().bounds) && GameSc.getA()==1){
             stop();
         }
     }
