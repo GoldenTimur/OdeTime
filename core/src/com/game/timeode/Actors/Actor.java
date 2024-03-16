@@ -38,6 +38,7 @@ public abstract class Actor extends GraphicsObj {
     public void setPosition(float x, float y) {
         this.position = new Point2D(x,y);
     }
+
     public void setPosition(){
         this.position = new Point2D(constX,constY);
     }
