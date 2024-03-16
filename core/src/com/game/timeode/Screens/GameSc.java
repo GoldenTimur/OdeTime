@@ -204,6 +204,8 @@ public class GameSc extends Objects implements Screen  {
         scene2.draw(batch);
         pit.draw(batch);
         pit.update();
+        box.draw(batch);
+        box.update();
     }
     public void level3(SpriteBatch batch){
         scene.draw(batch);
@@ -229,7 +231,7 @@ public class GameSc extends Objects implements Screen  {
         box = new Boxes(Main.Box1,new Point2D(11.7f*Main.WIDTH/10.5f,3*Main.HEIGHT/4.875f),10,Main.WIDTH/9.2f,Main.HEIGHT/4.5f);
         wallLiane = new WallLiane(Main.WallLiane1,new Point2D(Main.WIDTH/0.5f,-100),1,Main.WIDTH/20,Main.HEIGHT*1.2f);
         plate = new Plate(Main.Plane1,new Point2D(15f*Main.WIDTH/10.5f,3*Main.HEIGHT/4.875f),10,Main.WIDTH/9.2f,Main.HEIGHT/4.5f);
-        pit = new Pit(Main.Pit1,new Point2D(11.7f*Main.WIDTH/10.5f,0),10,Main.WIDTH/9.2f,Main.HEIGHT*1.2f);
+        pit = new Pit(Main.Pit1,new Point2D(15f*Main.WIDTH/10.5f,0),10,Main.WIDTH/9f,Main.HEIGHT*1f);
     }
 
     public void multitouch(float x, float y, boolean isDownTouch, int pointer){

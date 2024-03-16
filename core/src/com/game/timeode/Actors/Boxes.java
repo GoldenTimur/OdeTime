@@ -35,7 +35,7 @@ public class Boxes extends Actor{
     }
 
     public void walkBox(float x, float y) {
-        if (!touch){
+        if (!touch1){
             position = new Point2D(position.getX() + x, position.getY() + y);
         }
     }

@@ -2,6 +2,7 @@ package com.game.timeode.Actors;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.game.timeode.Main;
 import com.game.timeode.Tools.Point2D;
 import com.game.timeode.Tools.Square;
 
@@ -20,6 +21,7 @@ public class WallLiane extends Actor{
         if (gameSc.getBox().isTouch() && bounds.isContains(gameSc.getPlayer().getBounds())){
             gameSc.getBox().setTouch(false);
             gameSc.setD(true);
+            gameSc.getBox().setImg(Main.Box4);
         }
         setBounds(new Square(A,B,this.position));
         this.x = position.getX();

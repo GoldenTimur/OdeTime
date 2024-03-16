@@ -44,8 +44,8 @@ public class Player extends Actor{
     @Override
     public void update() {
         setBounds(new Square(A,B,this.position));
-        if(position.getX()+A+Main.WIDTH/20 > Main.WIDTH){
-            position.setX(Main.WIDTH-A-Main.WIDTH/20);
+        if(position.getX()+A+Main.WIDTH/4 > Main.WIDTH){
+            position.setX(Main.WIDTH-A-Main.WIDTH/4);
             if (gameSc.ObjGetX(gameSc.getScene())>-Main.HEIGHT*2.75f) {
                 gameSc.walk(gameSc.getScene(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getBox(),-direction.getX() * speed, 0);
