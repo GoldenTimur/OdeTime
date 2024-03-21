@@ -9,6 +9,7 @@ import com.game.timeode.Actors.Boxes;
 import com.game.timeode.Actors.Pit;
 import com.game.timeode.Actors.Plate;
 import com.game.timeode.Actors.Player;
+import com.game.timeode.Actors.Time;
 import com.game.timeode.Actors.WallLiane;
 import com.game.timeode.Background.Load;
 import com.game.timeode.Background.Name;
@@ -25,8 +26,8 @@ import com.game.timeode.Background.Scene;
 
 public class GameSc extends Objects implements Screen  {
     Main main;
-    public GameSc(Main main, Joystick joy, Fight fig, Player player, Scene scene, Scene scene2, PlayButton playButton, Name name, Start start, Load load, Boxes box, WallLiane wallLiane, Plate plate, Pit pit) {
-        super(main,joy, fig, player, scene, scene2, playButton, name, start, load, box, wallLiane, plate, pit);
+    public GameSc(Main main, Joystick joy, Fight fig, Player player, Scene scene, Scene scene2, PlayButton playButton, Name name, Start start, Load load, Boxes box, WallLiane wallLiane, Plate plate, Pit pit, Time time) {
+        super(main,joy, fig, player, scene, scene2, playButton, name, start, load, box, wallLiane, plate, pit, time);
         this.main = main;
     }
 
@@ -127,8 +128,10 @@ public class GameSc extends Objects implements Screen  {
     }
 
     public void GameUpdate() {
-        player.setDirection(joy.getDir());
-        player.update();
+        if (!player.isStopPlayer()){
+            player.setDirection(joy.getDir());
+            player.update();
+        }
     }
 
     public static int a = 0;
@@ -206,9 +209,13 @@ public class GameSc extends Objects implements Screen  {
         pit.update();
         box.draw(batch);
         box.update();
+        wallLiane.update();
     }
     public void level3(SpriteBatch batch){
         scene.draw(batch);
+        time.draw(batch);
+        time.update();
+
     }
     public void level4(SpriteBatch batch){
 
@@ -219,19 +226,20 @@ public class GameSc extends Objects implements Screen  {
 
 
     public void  loadActors(){
-        joy = new Joystick(Main.circle1,Main.circle2,new Point2D(0.11f*Main.WIDTH,0.25f*Main.HEIGHT),Main.HEIGHT/3);
-        player = new Player(Main.actor1,Main.actorFight1,new Point2D(Main.WIDTH/2,Main.HEIGHT/2),7,Main.WIDTH/20,Main.HEIGHT/5,20);
-        fig = new Fight(Main.circle3,new Point2D(Main.WIDTH/1.125f,0.25f*Main.HEIGHT),Main.HEIGHT/3);
+        joy = new Joystick(Main.circle1,Main.circle2,new Point2D(0.11f*Main.WIDTH,0.25f*Main.HEIGHT),Main.HEIGHT/3f);
+        player = new Player(Main.actor1,Main.actorFight1,new Point2D(Main.WIDTH/2f,Main.HEIGHT/2f),7,Main.WIDTH/20f,Main.HEIGHT/5f,20);
+        fig = new Fight(Main.circle3,new Point2D(Main.WIDTH/1.125f,0.25f*Main.HEIGHT),Main.HEIGHT/3f);
         scene = new Scene(Main.Scene2,new Point2D(0,0), Main.HEIGHT*5.45f, Main.HEIGHT);
         scene2 = new Scene(Main.Scene1,new Point2D(0,0), Main.HEIGHT*5.45f, Main.HEIGHT);
-        playButton = new PlayButton(Main.Play,new Point2D(21*Main.WIDTH/64,Main.HEIGHT/20),0.31f*Main.WIDTH,0.231f*Main.HEIGHT);
-        name = new Name(Main.Name,new Point2D(Main.WIDTH/5,3*Main.HEIGHT/4),0.63f*Main.WIDTH,0.231f*Main.HEIGHT);
+        playButton = new PlayButton(Main.Play,new Point2D(21*Main.WIDTH/64f,Main.HEIGHT/20f),0.31f*Main.WIDTH,0.231f*Main.HEIGHT);
+        name = new Name(Main.Name,new Point2D(Main.WIDTH/5f,3*Main.HEIGHT/4f),0.63f*Main.WIDTH,0.231f*Main.HEIGHT);
         start = new Start(Main.PlayOut,new Point2D(0,0),Main.WIDTH,Main.HEIGHT);
         load = new Load(Main.Load,new Point2D(0,0),Main.WIDTH,Main.HEIGHT);
         box = new Boxes(Main.Box1,new Point2D(11.7f*Main.WIDTH/10.5f,3*Main.HEIGHT/4.875f),10,Main.WIDTH/9.2f,Main.HEIGHT/4.5f);
-        wallLiane = new WallLiane(Main.WallLiane1,new Point2D(Main.WIDTH/0.5f,-100),1,Main.WIDTH/20,Main.HEIGHT*1.2f);
+        wallLiane = new WallLiane(Main.WallLiane1,new Point2D(Main.WIDTH/0.5f,-100),1,Main.WIDTH/20f,Main.HEIGHT*1.2f);
         plate = new Plate(Main.Plane1,new Point2D(15f*Main.WIDTH/10.5f,3*Main.HEIGHT/4.875f),10,Main.WIDTH/9.2f,Main.HEIGHT/4.5f);
-        pit = new Pit(Main.Pit1,new Point2D(15f*Main.WIDTH/10.5f,0),10,Main.WIDTH/9f,Main.HEIGHT*1f);
+        pit = new Pit(Main.Pit1,new Point2D(15f*Main.WIDTH/10.5f,0),10,Main.WIDTH/9.2f,Main.HEIGHT*1f);
+        time = new Time(Main.OldTime,new Point2D(15f*Main.WIDTH/10.5f,Main.HEIGHT/2.5f),7,2*Main.WIDTH/9.2f,2.25f*Main.HEIGHT/4.5f);
     }
 
     public void multitouch(float x, float y, boolean isDownTouch, int pointer){

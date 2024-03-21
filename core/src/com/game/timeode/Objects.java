@@ -4,6 +4,7 @@ import com.game.timeode.Actors.Boxes;
 import com.game.timeode.Actors.Pit;
 import com.game.timeode.Actors.Plate;
 import com.game.timeode.Actors.Player;
+import com.game.timeode.Actors.Time;
 import com.game.timeode.Actors.WallLiane;
 import com.game.timeode.Background.Load;
 import com.game.timeode.Background.Name;
@@ -29,9 +30,10 @@ public abstract class Objects implements Interface{
     protected Plate plate;
     protected Main main;
     protected Pit pit;
+    protected Time time;
 
 
-    public Objects(Main main, Joystick joy, Fight fig, Player player, Scene scene, Scene scene2, PlayButton playButton, Name name, Start start, Load load, Boxes box, WallLiane wallLiane, Plate plate, Pit pit) {
+    public Objects(Main main, Joystick joy, Fight fig, Player player, Scene scene, Scene scene2, PlayButton playButton, Name name, Start start, Load load, Boxes box, WallLiane wallLiane, Plate plate, Pit pit, Time time) {
         this.joy = joy;
         this.fig = fig;
         this.player = player;
@@ -46,6 +48,7 @@ public abstract class Objects implements Interface{
         this.plate = plate;
         this.main = main;
         this.pit = pit;
+        this.time = time;
     }
 
 
@@ -118,5 +121,9 @@ public abstract class Objects implements Interface{
 
     public Pit getPit() {
         return pit;
+    }
+
+    public Time getTime() {
+        return time;
     }
 }

@@ -25,6 +25,17 @@ public class Boxes extends Actor{
         setBounds(new Square(A,B,this.position));
         this.x = position.getX();
         this.y = position.getY();
+        if(!isTouch()) {
+            switch (GameSc.getA()) {
+                case (1):
+                    setImg(Main.Box1);
+                    break;
+                case (2):
+                    setImg(Main.Box4);
+                    break;
+            }
+        }
+
         if (!touch && bounds.isContainsInside(gameSc.getPlate().getBounds()) && GameSc.getA()==1){
             touch = true;
         }
@@ -35,24 +46,31 @@ public class Boxes extends Actor{
     }
 
     public void walkBox(float x, float y) {
-        if (!touch1){
+        if (!isTouch()){
             position = new Point2D(position.getX() + x, position.getY() + y);
         }
     }
 
     public boolean isTouch() {
+        switch(GameSc.getA()){
+            case (1):
+                return touch;
+            case (2):
+                return touch1;
+
+        }
         return touch;
     }
 
     public void setTouch(boolean touch) {
-        this.touch = touch;
-    }
+        switch(GameSc.getA()){
+            case (1):
+                this.touch = touch;
+                break;
+            case (2):
+                this.touch1 = touch;
+                break;
 
-    public boolean isTouch1() {
-        return touch1;
-    }
-
-    public void setTouch1(boolean touch1) {
-        this.touch1 = touch1;
+        }
     }
 }

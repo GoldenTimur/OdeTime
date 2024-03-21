@@ -4,6 +4,7 @@ import com.game.timeode.Actors.Boxes;
 import com.game.timeode.Actors.Pit;
 import com.game.timeode.Actors.Plate;
 import com.game.timeode.Actors.Player;
+import com.game.timeode.Actors.Time;
 import com.game.timeode.Actors.WallLiane;
 import com.game.timeode.Background.Load;
 import com.game.timeode.Background.Name;
@@ -29,5 +30,6 @@ public interface Interface {
     Plate plate = null;
     GameSc gameSc = null;
     Pit pit = null;
+    Time time = null;
 
 }

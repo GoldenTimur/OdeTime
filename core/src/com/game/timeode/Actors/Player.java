@@ -17,6 +17,8 @@ public class Player extends Actor{
     public static boolean h = false;
     private float a, b;
     private final float constA, constB;
+    private boolean stopPlayer = false;
+
 
 
     public Player(Texture imgwalk, Texture imgfig, Point2D position, float speed, float A, float B, float health) {
@@ -27,6 +29,7 @@ public class Player extends Actor{
         this.b = B;
         this.constA = A;
         this.constB = B;
+        Dialogue dialogue = new Dialogue(Main.Box4,new Point2D(0,0),7,Main.WIDTH/1f,Main.HEIGHT/30);
     }
 
     @Override
@@ -44,24 +47,26 @@ public class Player extends Actor{
     @Override
     public void update() {
         setBounds(new Square(A,B,this.position));
-        if(position.getX()+A+Main.WIDTH/4 > Main.WIDTH){
-            position.setX(Main.WIDTH-A-Main.WIDTH/4);
-            if (gameSc.ObjGetX(gameSc.getScene())>-Main.HEIGHT*2.75f) {
+        if(position.getX()+A+Main.WIDTH/45 > Main.WIDTH){
+            position.setX(Main.WIDTH-A-Main.WIDTH/45);
+            if (gameSc.ObjGetX(gameSc.getScene())>-Main.HEIGHT*2.75f && !(position.getX()+A+Main.WIDTH/45 > Main.WIDTH)) {
                 gameSc.walk(gameSc.getScene(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getBox(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getWallLiane(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getPlate(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getPit(),-direction.getX() * speed, 0);
+                gameSc.walk(gameSc.getTime(),-direction.getX() * speed, 0);
             }
         }
         if(position.getX()-Main.WIDTH/45 < 0){
             position.setX(Main.WIDTH/45);
-            if (gameSc.ObjGetX(gameSc.getScene())<0) {
+            if (gameSc.ObjGetX(gameSc.getScene())<0 && !(position.getX()-Main.WIDTH/45 < 0)) {
                 gameSc.walk(gameSc.getScene(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getBox(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getWallLiane(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getPlate(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getPit(),-direction.getX() * speed, 0);
+                gameSc.walk(gameSc.getTime(),-direction.getX() * speed, 0);
             }
         }
         if(position.getY()+B+Main.HEIGHT/90 > Main.HEIGHT){
@@ -94,11 +99,20 @@ public class Player extends Actor{
                 gameSc.getBox().walkBox(-15.3f * gameSc.getBox().A / 16, 0);
             }
         }
-        if (bounds.isContains(gameSc.getPit().getBounds()) && !bounds.isContains(gameSc.getBox().getBounds())){
+        if (bounds.isContains(gameSc.getPit().getBounds()) && !bounds.isContains(gameSc.getBox().getBounds()) && GameSc.getA()==2){
             stop();
         }
-        if (!gameSc.getBox().isTouch() && bounds.isContains(gameSc.getWallLiane().bounds) && GameSc.getA()==1){
+        if (!gameSc.getBox().isTouch() && bounds.isContains(gameSc.getWallLiane().bounds) && (GameSc.getA()==1 || GameSc.getA()==2)){
             stop();
+        }
+
+        if (bounds.isContains(gameSc.getTime().getBounds())){
+            stopPlayer = true;
+//            Dialogue1 dialogue1 = new Dialogue1();
+//            if (!Dialogue1Flag){
+//                Dialogue1Flag = true;
+//                dialogue1.start();
+//            }
         }
     }
     public void fight(){
@@ -118,7 +132,15 @@ public class Player extends Actor{
         setImg(Main.actor1);
     }
     public void stop(){
-        position.setPoint(position.getX()-Main.WIDTH/270,position.getY());
+        if(Joystick.ler){
+            position.setPoint(position.getX()-Main.WIDTH/270,position.getY());
+        }else {
+            position.setPoint(position.getX()+Main.WIDTH/270,position.getY());
+        }
+
+    }
+    public boolean isStopPlayer() {
+        return stopPlayer;
     }
     class MyThreed extends Thread{
         @Override
@@ -184,6 +206,17 @@ public class Player extends Actor{
             ThreadFlag = true;
             h = true;
             flagBox = true;
+        }
+    }
+
+    private boolean Dialogue1Flag = false;
+    class Dialogue1 extends Thread{
+        @Override
+        public void run(){
+            stopPlayer = false;
+            gameSc.getBox().setTouch(false);
+            gameSc.setD(true);
+            Dialogue1Flag = false;
         }
     }
 }

@@ -60,4 +60,11 @@ public class Square {
         return q;
     }
 
+    public float getA() {
+        return a;
+    }
+
+    public float getB() {
+        return b;
+    }
 }
