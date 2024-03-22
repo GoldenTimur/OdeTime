@@ -18,6 +18,8 @@ public class Player extends Actor{
     private float a, b;
     private final float constA, constB;
     private boolean stopPlayer = false;
+    private Dialogue dialogue;
+    private Dialogue1 dialogue1;
 
 
 
@@ -29,7 +31,8 @@ public class Player extends Actor{
         this.b = B;
         this.constA = A;
         this.constB = B;
-        Dialogue dialogue = new Dialogue(Main.Box4,new Point2D(0,0),7,Main.WIDTH/1f,Main.HEIGHT/30);
+        this.dialogue1 = new Dialogue1();
+        dialogue = new Dialogue(Main.Empty,new Point2D(2*Main.WIDTH/12.5f,0),7,Main.WIDTH/1.5f,Main.HEIGHT/2.5f);
     }
 
     @Override
@@ -47,33 +50,35 @@ public class Player extends Actor{
     @Override
     public void update() {
         setBounds(new Square(A,B,this.position));
-        if(position.getX()+A+Main.WIDTH/45 > Main.WIDTH){
-            position.setX(Main.WIDTH-A-Main.WIDTH/45);
-            if (gameSc.ObjGetX(gameSc.getScene())>-Main.HEIGHT*2.75f && !(position.getX()+A+Main.WIDTH/45 > Main.WIDTH)) {
+        if(position.getX()+A+Main.WIDTH/45f > Main.WIDTH){
+            position.setX(Main.WIDTH-A-Main.WIDTH/45f);
+            if (gameSc.ObjGetX(gameSc.getScene())>-Main.HEIGHT*2.75f && !(position.getX()+A+Main.WIDTH/45f > Main.WIDTH)) {
                 gameSc.walk(gameSc.getScene(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getBox(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getWallLiane(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getPlate(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getPit(),-direction.getX() * speed, 0);
+                gameSc.walk(gameSc.getWater(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getTime(),-direction.getX() * speed, 0);
             }
         }
-        if(position.getX()-Main.WIDTH/45 < 0){
-            position.setX(Main.WIDTH/45);
-            if (gameSc.ObjGetX(gameSc.getScene())<0 && !(position.getX()-Main.WIDTH/45 < 0)) {
+        if(position.getX()-Main.WIDTH/45f < 0){
+            position.setX(Main.WIDTH/45f);
+            if (gameSc.ObjGetX(gameSc.getScene())<0 && !(position.getX()-Main.WIDTH/45f < 0)) {
                 gameSc.walk(gameSc.getScene(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getBox(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getWallLiane(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getPlate(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getPit(),-direction.getX() * speed, 0);
+                gameSc.walk(gameSc.getWater(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getTime(),-direction.getX() * speed, 0);
             }
         }
-        if(position.getY()+B+Main.HEIGHT/90 > Main.HEIGHT){
-            position.setY(Main.HEIGHT-B-Main.HEIGHT/90);
+        if(position.getY()+B+Main.HEIGHT/90f > Main.HEIGHT){
+            position.setY(Main.HEIGHT-B-Main.HEIGHT/90f);
         }
-        if(position.getY()-Main.HEIGHT/90 < 0){
-            position.setY(Main.HEIGHT/90);
+        if(position.getY()-Main.HEIGHT/90f < 0){
+            position.setY(Main.HEIGHT/90f);
         }
 
         if (!Fight.fighter) {
@@ -102,17 +107,15 @@ public class Player extends Actor{
         if (bounds.isContains(gameSc.getPit().getBounds()) && !bounds.isContains(gameSc.getBox().getBounds()) && GameSc.getA()==2){
             stop();
         }
-        if (!gameSc.getBox().isTouch() && bounds.isContains(gameSc.getWallLiane().bounds) && (GameSc.getA()==1 || GameSc.getA()==2)){
+        if (!gameSc.getBox().isTouch() && bounds.isContains(gameSc.getWallLiane().bounds) && (GameSc.getA()==1 || GameSc.getA()==2 || GameSc.getA()==4)){
             stop();
         }
 
-        if (bounds.isContains(gameSc.getTime().getBounds())){
-            stopPlayer = true;
-//            Dialogue1 dialogue1 = new Dialogue1();
-//            if (!Dialogue1Flag){
-//                Dialogue1Flag = true;
-//                dialogue1.start();
-//            }
+        if (bounds.isContains(gameSc.getTime().getBounds()) || GameSc.getA()==1){
+            if (!Dialogue1Flag){
+                Dialogue1Flag = true;
+                dialogue1.start();
+            }
         }
     }
     public void fight(){
@@ -133,9 +136,9 @@ public class Player extends Actor{
     }
     public void stop(){
         if(Joystick.ler){
-            position.setPoint(position.getX()-Main.WIDTH/270,position.getY());
+            position.setPoint(position.getX()-Main.WIDTH/270f,position.getY());
         }else {
-            position.setPoint(position.getX()+Main.WIDTH/270,position.getY());
+            position.setPoint(position.getX()+Main.WIDTH/270f,position.getY());
         }
 
     }
@@ -209,14 +212,116 @@ public class Player extends Actor{
         }
     }
 
+    public Dialogue getDialogue() {
+        return dialogue;
+    }
+
+    public void setDialogue1Flag() {
+        Dialogue1Flag = false;
+    }
+
     private boolean Dialogue1Flag = false;
     class Dialogue1 extends Thread{
         @Override
         public void run(){
+            stopPlayer = true;
+            switch (GameSc.getA()) {
+                case (1):
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    dialogue.setImg(Main.Dialogue1);
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    dialogue.setImg(Main.Empty);
+                    stopPlayer = false;
+                    try {
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    stopPlayer = true;
+                    dialogue.setImg(Main.Dialogue2);
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+                case (3):
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    dialogue.setImg(Main.Dialogue3);
+
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    dialogue.setImg(Main.Dialogue4);
+
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    dialogue.setImg(Main.Dialogue5);
+
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                    }
+                    dialogue.setImg(Main.Dialogue6);
+
+                    try {
+                    Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                    }
+                    dialogue.setImg(Main.Dialogue7);
+
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    dialogue.setImg(Main.Dialogue8);
+
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    dialogue.setImg(Main.Dialogue9);
+
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    dialogue.setImg(Main.Dialogue10);
+
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    dialogue.setImg(Main.Dialogue11);
+                    gameSc.getBox().setTouch(false);
+                    gameSc.setD(true);
+                    break;
+            }
+            dialogue.setImg(Main.Empty);
             stopPlayer = false;
-            gameSc.getBox().setTouch(false);
-            gameSc.setD(true);
-            Dialogue1Flag = false;
         }
     }
 }

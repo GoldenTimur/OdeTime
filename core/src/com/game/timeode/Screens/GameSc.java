@@ -11,6 +11,7 @@ import com.game.timeode.Actors.Plate;
 import com.game.timeode.Actors.Player;
 import com.game.timeode.Actors.Time;
 import com.game.timeode.Actors.WallLiane;
+import com.game.timeode.Actors.Water;
 import com.game.timeode.Background.Load;
 import com.game.timeode.Background.Name;
 import com.game.timeode.Background.Start;
@@ -26,8 +27,8 @@ import com.game.timeode.Background.Scene;
 
 public class GameSc extends Objects implements Screen  {
     Main main;
-    public GameSc(Main main, Joystick joy, Fight fig, Player player, Scene scene, Scene scene2, PlayButton playButton, Name name, Start start, Load load, Boxes box, WallLiane wallLiane, Plate plate, Pit pit, Time time) {
-        super(main,joy, fig, player, scene, scene2, playButton, name, start, load, box, wallLiane, plate, pit, time);
+    public GameSc(Main main, Joystick joy, Fight fig, Player player, Scene scene, Scene scene2, PlayButton playButton, Name name, Start start, Load load, Boxes box, WallLiane wallLiane, Plate plate, Pit pit, Time time, Water water) {
+        super(main,joy, fig, player, scene, scene2, playButton, name, start, load, box, wallLiane, plate, pit, time, water);
         this.main = main;
     }
 
@@ -161,7 +162,7 @@ public class GameSc extends Objects implements Screen  {
                 player.draw(batch);
                 joy.draw(batch);
                 fig.draw(batch);
-
+                player.getDialogue().draw(batch);
             }
 
 
@@ -218,10 +219,21 @@ public class GameSc extends Objects implements Screen  {
 
     }
     public void level4(SpriteBatch batch){
+        scene2.draw(batch);
+        water.draw(batch);
+        water.update();
+        plate.draw(batch);
+        plate.update();
+        box.draw(batch);
+        box.update();
+        if (!getBox().isTouch()){
+            wallLiane.draw(batch);
+        }
+        wallLiane.update();
 
     }
     public void level5(SpriteBatch batch){
-
+        scene.draw(batch);
     }
 
 
@@ -239,6 +251,7 @@ public class GameSc extends Objects implements Screen  {
         wallLiane = new WallLiane(Main.WallLiane1,new Point2D(Main.WIDTH/0.5f,-100),1,Main.WIDTH/20f,Main.HEIGHT*1.2f);
         plate = new Plate(Main.Plane1,new Point2D(15f*Main.WIDTH/10.5f,3*Main.HEIGHT/4.875f),10,Main.WIDTH/9.2f,Main.HEIGHT/4.5f);
         pit = new Pit(Main.Pit1,new Point2D(15f*Main.WIDTH/10.5f,0),10,Main.WIDTH/9.2f,Main.HEIGHT*1f);
+        water = new Water(Main.Water1,new Point2D(14.95f*Main.WIDTH/10.5f,0),10,Main.WIDTH/9.2f,Main.HEIGHT*1f);
         time = new Time(Main.OldTime,new Point2D(15f*Main.WIDTH/10.5f,Main.HEIGHT/2.5f),7,2*Main.WIDTH/9.2f,2.25f*Main.HEIGHT/4.5f);
     }
 
@@ -258,10 +271,13 @@ public class GameSc extends Objects implements Screen  {
         return d;
     }
     public void setAllPosition(){
+        player.setDialogue1Flag();
         box.setPosition();
         plate.setPosition();
         wallLiane.setPosition();
         pit.setPosition();
+        water.setPosition();
+        time.setPosition();
     }
 
     public void setD(boolean d) {

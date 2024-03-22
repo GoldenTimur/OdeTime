@@ -6,6 +6,7 @@ import com.game.timeode.Actors.Plate;
 import com.game.timeode.Actors.Player;
 import com.game.timeode.Actors.Time;
 import com.game.timeode.Actors.WallLiane;
+import com.game.timeode.Actors.Water;
 import com.game.timeode.Background.Load;
 import com.game.timeode.Background.Name;
 import com.game.timeode.Background.Scene;
@@ -31,9 +32,10 @@ public abstract class Objects implements Interface{
     protected Main main;
     protected Pit pit;
     protected Time time;
+    protected Water water;
 
 
-    public Objects(Main main, Joystick joy, Fight fig, Player player, Scene scene, Scene scene2, PlayButton playButton, Name name, Start start, Load load, Boxes box, WallLiane wallLiane, Plate plate, Pit pit, Time time) {
+    public Objects(Main main, Joystick joy, Fight fig, Player player, Scene scene, Scene scene2, PlayButton playButton, Name name, Start start, Load load, Boxes box, WallLiane wallLiane, Plate plate, Pit pit, Time time, Water water) {
         this.joy = joy;
         this.fig = fig;
         this.player = player;
@@ -48,6 +50,7 @@ public abstract class Objects implements Interface{
         this.plate = plate;
         this.main = main;
         this.pit = pit;
+        this.water = water;
         this.time = time;
     }
 
@@ -67,8 +70,10 @@ public abstract class Objects implements Interface{
     public Scene getScene() {
         switch (GameSc.getA()) {
             case (1):
+            case (3):
                 return scene;
             case (2):
+            case (4):
                 return scene2;
         }
         return scene;
@@ -121,6 +126,10 @@ public abstract class Objects implements Interface{
 
     public Pit getPit() {
         return pit;
+    }
+
+    public Water getWater() {
+        return water;
     }
 
     public Time getTime() {

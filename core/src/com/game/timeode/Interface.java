@@ -6,6 +6,7 @@ import com.game.timeode.Actors.Plate;
 import com.game.timeode.Actors.Player;
 import com.game.timeode.Actors.Time;
 import com.game.timeode.Actors.WallLiane;
+import com.game.timeode.Actors.Water;
 import com.game.timeode.Background.Load;
 import com.game.timeode.Background.Name;
 import com.game.timeode.Background.Scene;
@@ -30,6 +31,7 @@ public interface Interface {
     Plate plate = null;
     GameSc gameSc = null;
     Pit pit = null;
+    Water water = null;
     Time time = null;
 
 }

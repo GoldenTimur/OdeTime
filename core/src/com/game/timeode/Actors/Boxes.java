@@ -9,12 +9,15 @@ import com.game.timeode.Tools.Square;
 
 public class Boxes extends Actor{
 
+
     public Boxes(Texture img, Point2D position, float speed, float A, float B) {
         super(img, position, speed, A, B);
-
     }
     private boolean touch = false;
     private boolean touch1 = false;
+    private boolean touch2 = false;
+    WalkBox walkBox;
+    private boolean walkBoxFlag = false;
 
     @Override
     public void draw(SpriteBatch batch) {
@@ -33,6 +36,8 @@ public class Boxes extends Actor{
                 case (2):
                     setImg(Main.Box4);
                     break;
+                case (4):
+                    setImg(Main.Box2);
             }
         }
 
@@ -42,6 +47,14 @@ public class Boxes extends Actor{
         if (!touch1 && bounds.isContainsInside(gameSc.getPit().getBounds()) && GameSc.getA()==2){
             setImg(Main.Box5);
             touch1 = true;
+        }
+        if (!walkBoxFlag && bounds.isContainsInside(gameSc.getWater().getBounds()) && GameSc.getA()==4){
+            walkBoxFlag = true;
+            walkBox = new WalkBox();
+            walkBox.start();
+        }
+        if (!touch2 && bounds.isContainsInside(gameSc.getPlate().getBounds()) && GameSc.getA()==4){
+            touch2 = true;
         }
     }
 
@@ -57,7 +70,8 @@ public class Boxes extends Actor{
                 return touch;
             case (2):
                 return touch1;
-
+            case (4):
+                return touch2;
         }
         return touch;
     }
@@ -70,7 +84,26 @@ public class Boxes extends Actor{
             case (2):
                 this.touch1 = touch;
                 break;
-
+            case (4):
+                this.touch2 = touch;
+                break;
+        }
+    }
+    class WalkBox extends Thread{
+        @Override
+        public void run(){
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            walkBox(0,-Main.HEIGHT/4.875f);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            walkBoxFlag = false;
         }
     }
 }
