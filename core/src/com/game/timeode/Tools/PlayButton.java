@@ -3,6 +3,7 @@ package com.game.timeode.Tools;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.timeode.Actors.Player;
+import com.game.timeode.Screens.GameSc;
 
 public class PlayButton {
     public static boolean play = false;
@@ -32,6 +33,7 @@ public class PlayButton {
         if(SquareBounds.isContains(touch) && isDownTouch && this.pointer == -1 && play == false){
             this.pointer = pointer;
             play = true;
+
         }
         if (this.pointer != -1){
             this.pointer = -1;

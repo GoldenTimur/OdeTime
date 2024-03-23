@@ -1,6 +1,7 @@
 package com.game.timeode;
 
 import com.game.timeode.Actors.Boxes;
+import com.game.timeode.Actors.Paradoxes;
 import com.game.timeode.Actors.Pit;
 import com.game.timeode.Actors.Plate;
 import com.game.timeode.Actors.Player;
@@ -33,5 +34,6 @@ public interface Interface {
     Pit pit = null;
     Water water = null;
     Time time = null;
+    Paradoxes paradox = null;
 
 }

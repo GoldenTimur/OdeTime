@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.game.timeode.Actors.Boxes;
+import com.game.timeode.Actors.Paradoxes;
 import com.game.timeode.Actors.Pit;
 import com.game.timeode.Actors.Plate;
 import com.game.timeode.Actors.Player;
@@ -27,9 +28,11 @@ import com.game.timeode.Background.Scene;
 
 public class GameSc extends Objects implements Screen  {
     Main main;
-    public GameSc(Main main, Joystick joy, Fight fig, Player player, Scene scene, Scene scene2, PlayButton playButton, Name name, Start start, Load load, Boxes box, WallLiane wallLiane, Plate plate, Pit pit, Time time, Water water) {
-        super(main,joy, fig, player, scene, scene2, playButton, name, start, load, box, wallLiane, plate, pit, time, water);
+//    Many many;
+    public GameSc(Main main, Joystick joy, Fight fig, Player player, Scene scene, Scene scene2, PlayButton playButton, Name name, Start start, Load load, Boxes box, WallLiane wallLiane, Plate plate, Pit pit, Time time, Water water, Paradoxes paradox) {
+        super(main,joy, fig, player, scene, scene2, playButton, name, start, load, box, wallLiane, plate, pit, time, water, paradox);
         this.main = main;
+//        many = new Many();
     }
 
 
@@ -133,6 +136,7 @@ public class GameSc extends Objects implements Screen  {
             player.setDirection(joy.getDir());
             player.update();
         }
+
     }
 
     public static int a = 0;
@@ -175,6 +179,16 @@ public class GameSc extends Objects implements Screen  {
         player.setPosition(200,player.getPosition().getY());
         a++;
     }
+    public void setA(int a){
+        if (!stopAllFlag){
+            stopAllFlag = true;
+            StopAll stopAll = new StopAll();
+            stopAll.start();
+        }
+    }
+    public void onlySetA(int a){
+        this.a = a;
+    }
 
     public static int getA() {
         return a;
@@ -186,7 +200,6 @@ public class GameSc extends Objects implements Screen  {
         if (ThreadFlag) {
         threadLoad.start();
         }
-
     }
     public void startWindow(SpriteBatch batch){
         start.draw(batch);
@@ -232,8 +245,11 @@ public class GameSc extends Objects implements Screen  {
         wallLiane.update();
 
     }
+    private boolean paradoxesFlag = false;
     public void level5(SpriteBatch batch){
         scene.draw(batch);
+        paradox.draw(batch);
+        paradox.update();
     }
 
 
@@ -253,6 +269,7 @@ public class GameSc extends Objects implements Screen  {
         pit = new Pit(Main.Pit1,new Point2D(15f*Main.WIDTH/10.5f,0),10,Main.WIDTH/9.2f,Main.HEIGHT*1f);
         water = new Water(Main.Water1,new Point2D(14.95f*Main.WIDTH/10.5f,0),10,Main.WIDTH/9.2f,Main.HEIGHT*1f);
         time = new Time(Main.OldTime,new Point2D(15f*Main.WIDTH/10.5f,Main.HEIGHT/2.5f),7,2*Main.WIDTH/9.2f,2.25f*Main.HEIGHT/4.5f);
+        paradox = new Paradoxes(Main.Paradox1,new Point2D(14.95f*Main.WIDTH/10.5f,Main.HEIGHT/4f),10, 1.5f*Main.WIDTH/9.2f,3*Main.HEIGHT/4.5f);
     }
 
     public void multitouch(float x, float y, boolean isDownTouch, int pointer){
@@ -272,12 +289,16 @@ public class GameSc extends Objects implements Screen  {
     }
     public void setAllPosition(){
         player.setDialogue1Flag();
+        scene.setPosition();
+        scene2.setPosition();
         box.setPosition();
         plate.setPosition();
         wallLiane.setPosition();
         pit.setPosition();
         water.setPosition();
         time.setPosition();
+        player.setStopPlayer(false);
+        paradox.setPosition();
     }
 
     public void setD(boolean d) {
@@ -302,4 +323,31 @@ public class GameSc extends Objects implements Screen  {
             ThreadFlag = true;
         }
     }
+
+    private boolean stopAllFlag = false;
+    class StopAll extends Thread{
+        @Override
+        public void run(){
+            player.setStopPlayer(true);
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            onlySetA(-1);
+            setA();
+            PlayButton.play = false;
+            stopAllFlag = false;
+            d = true;
+        }
+    }
+
+//    class Many extends Thread{
+//        @Override
+//        public void run(){
+//            while (true){
+//
+//            }
+//        }
+//    }
 }

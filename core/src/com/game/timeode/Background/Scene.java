@@ -7,11 +7,14 @@ import com.game.timeode.Main;
 import com.game.timeode.Tools.Point2D;
 
 public class Scene extends GraphicsObj {
+    private final float constX,constY;
 
     public Scene(Texture img, Point2D point2D,float x, float y) {
         super(img);
         this.x = x;
         this.y = y;
+        constX = point2D.getX();
+        constY = point2D.getY();
         this.position = point2D;
     }
 
@@ -25,4 +28,7 @@ public class Scene extends GraphicsObj {
 
     }
 
+    public void setPosition(){
+        this.position = new Point2D(constX,constY);
+    }
 }

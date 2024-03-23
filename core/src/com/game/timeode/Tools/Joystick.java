@@ -11,6 +11,7 @@ public class Joystick {
 
     Point2D direction, point;
     public static boolean ler;
+    public static boolean touchFlag = false;
 
     public Joystick(Texture cimg, Texture simg, Point2D point, float Size) {
         CircleImg = cimg;
@@ -35,9 +36,11 @@ public class Joystick {
         }
         if(CircleBounds.Overlaps(StickBounds) && isDownTouch && pointer == this.pointer){
             atControl(new Point2D(x,y));
+            touchFlag = true;
         }
         if(!isDownTouch && pointer == this.pointer){
             returnStick();
+            touchFlag = false;
         }
         if (isDownTouch && pointer == this.pointer && !CircleBounds.isContains(touch)){
             StickBounds.pos.setPoint(StickBounds.pos);

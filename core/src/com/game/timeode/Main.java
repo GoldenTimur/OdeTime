@@ -21,7 +21,7 @@ public class Main extends Game implements Interface {
 	public static boolean timeFlag = false;
 	public static GameSc gameSc;
 
-	public static Texture Empty, Dialogue1, Dialogue2, Dialogue3, Dialogue4, Dialogue5, Dialogue6, Dialogue7, Dialogue8, Dialogue9, Dialogue10, Dialogue11, OldTime, PlayOut,Play , Name, Scene1, Scene2, circle1, circle2, circle3, actor1, actor1_1, actor2, actor3, actor4, actor5, actorFight1, actorFight1_1, actorFight2, actorFight2_1, actorFight3, actorFight3_1, actorFight4, actorFight5, Load, Box1, Box2, Box3, Box4, Box5, Box6, WallLiane1, WallLiane2, Plane1, Plane2, Water1, Water2, Pit1, Pit2;
+	public static Texture Empty, Dialogue1, Dialogue2, Dialogue3, Dialogue4, Dialogue5, Dialogue6, Dialogue7, Dialogue8, Dialogue9, Dialogue10, Dialogue11, OldTime, PlayOut,Play , Name, Scene1, Scene2, circle1, circle2, circle3, actor1, actor1_1, actor2, actor2_1, actor3, actor3_1, actor4, actor4_1, actor5, actor5_1, actor6, actor6_1, actor7, actor7_1, actor8, actor8_1, actor9, actor9_1, actor10, actor10_1, actorFight1, actorFight1_1, actorFight2, actorFight2_1, actorFight3, actorFight3_1, actorFight4, actorFight5, Load, Box1, Box2, Box3, Box4, Box5, Box6, WallLiane1, WallLiane2, Plane1, Plane2, Water1, Water2, Pit1, Pit2, Paradox1, Paradox2;
 
 	@Override
 	public void create () {
@@ -33,6 +33,24 @@ public class Main extends Game implements Interface {
 		circle3 = new Texture("Fightstick1.png");
 		actor1 = new Texture("Run1.png");
 		actor1_1 = new Texture("Run1_1.png");
+		actor2 = new Texture("Run2.png");
+		actor2_1 = new Texture("Run2_1.png");
+		actor3 = new Texture("Run3.png");
+		actor3_1 = new Texture("Run3_1.png");
+		actor4 = new Texture("Run4.png");
+		actor4_1 = new Texture("Run4_1.png");
+		actor5 = new Texture("Run5.png");
+		actor5_1 = new Texture("Run5_1.png");
+		actor6 = new Texture("Run6.png");
+		actor6_1 = new Texture("Run6_1.png");
+		actor7 = new Texture("Run7.png");
+		actor7_1 = new Texture("Run7_1.png");
+		actor8 = new Texture("Run8.png");
+		actor8_1 = new Texture("Run8_1.png");
+		actor9 = new Texture("Run9.png");
+		actor9_1 = new Texture("Run9_1.png");
+		actor10 = new Texture("Run10.png");
+		actor10_1 = new Texture("Run10_1.png");
 		actorFight1 = new Texture("Fight1.png");
 		actorFight1_1 =  new Texture("Fight1_1.png");
 		actorFight2 = new Texture("Fight2.png");
@@ -72,7 +90,9 @@ public class Main extends Game implements Interface {
 		Dialogue10 = new Texture("Dialog10.png");
 		Dialogue11 = new Texture("Dialog11.png");
 		Empty = new Texture("Empty.png");
-		gameSc = new GameSc(this, joy, fig, player, scene, scene2, playButton, name, start, load, box, wallLiane, plate, pit, time, water);
+		Paradox1 = new Texture("Paradox1.png");
+		Paradox2 = new Texture("Paradox2.png");
+		gameSc = new GameSc(this, joy, fig, player, scene, scene2, playButton, name, start, load, box, wallLiane, plate, pit, time, water, paradox);
 		setScreen(gameSc);
 	}
 

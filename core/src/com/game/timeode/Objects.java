@@ -1,6 +1,7 @@
 package com.game.timeode;
 
 import com.game.timeode.Actors.Boxes;
+import com.game.timeode.Actors.Paradoxes;
 import com.game.timeode.Actors.Pit;
 import com.game.timeode.Actors.Plate;
 import com.game.timeode.Actors.Player;
@@ -33,9 +34,10 @@ public abstract class Objects implements Interface{
     protected Pit pit;
     protected Time time;
     protected Water water;
+    protected Paradoxes paradox;
 
 
-    public Objects(Main main, Joystick joy, Fight fig, Player player, Scene scene, Scene scene2, PlayButton playButton, Name name, Start start, Load load, Boxes box, WallLiane wallLiane, Plate plate, Pit pit, Time time, Water water) {
+    public Objects(Main main, Joystick joy, Fight fig, Player player, Scene scene, Scene scene2, PlayButton playButton, Name name, Start start, Load load, Boxes box, WallLiane wallLiane, Plate plate, Pit pit, Time time, Water water, Paradoxes paradox) {
         this.joy = joy;
         this.fig = fig;
         this.player = player;
@@ -52,6 +54,7 @@ public abstract class Objects implements Interface{
         this.pit = pit;
         this.water = water;
         this.time = time;
+        this.paradox = paradox;
     }
 
 
@@ -134,5 +137,9 @@ public abstract class Objects implements Interface{
 
     public Time getTime() {
         return time;
+    }
+
+    public Paradoxes getParadox() {
+        return paradox;
     }
 }
