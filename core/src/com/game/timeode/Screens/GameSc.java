@@ -26,13 +26,15 @@ import com.game.timeode.Tools.Point2D;
 
 import com.game.timeode.Background.Scene;
 
+import java.util.ArrayList;
+
 public class GameSc extends Objects implements Screen  {
     Main main;
-//    Many many;
+    Many many;
     public GameSc(Main main, Joystick joy, Fight fig, Player player, Scene scene, Scene scene2, PlayButton playButton, Name name, Start start, Load load, Boxes box, WallLiane wallLiane, Plate plate, Pit pit, Time time, Water water, Paradoxes paradox) {
         super(main,joy, fig, player, scene, scene2, playButton, name, start, load, box, wallLiane, plate, pit, time, water, paradox);
         this.main = main;
-//        many = new Many();
+        many = new Many();
     }
 
 
@@ -139,7 +141,7 @@ public class GameSc extends Objects implements Screen  {
 
     }
 
-    public static int a = 0;
+    public static int a = 4;
     private boolean d = true;
     public void GameRender(SpriteBatch batch){
         if (PlayButton.play) {
@@ -248,10 +250,17 @@ public class GameSc extends Objects implements Screen  {
     private boolean paradoxesFlag = false;
     public void level5(SpriteBatch batch){
         scene.draw(batch);
-        paradox.draw(batch);
-        paradox.update();
+        while(i<1) {
+            many.batch(batch);
+            many.start();
+            i++;
+        }
+        for (int i = 0; i < par.size(); i++){
+            par.get(i).update();
+            par.get(i).draw(batch);
+        }
     }
-
+    private int i=0;
 
     public void  loadActors(){
         joy = new Joystick(Main.circle1,Main.circle2,new Point2D(0.11f*Main.WIDTH,0.25f*Main.HEIGHT),Main.HEIGHT/3f);
@@ -269,7 +278,7 @@ public class GameSc extends Objects implements Screen  {
         pit = new Pit(Main.Pit1,new Point2D(15f*Main.WIDTH/10.5f,0),10,Main.WIDTH/9.2f,Main.HEIGHT*1f);
         water = new Water(Main.Water1,new Point2D(14.95f*Main.WIDTH/10.5f,0),10,Main.WIDTH/9.2f,Main.HEIGHT*1f);
         time = new Time(Main.OldTime,new Point2D(15f*Main.WIDTH/10.5f,Main.HEIGHT/2.5f),7,2*Main.WIDTH/9.2f,2.25f*Main.HEIGHT/4.5f);
-        paradox = new Paradoxes(Main.Paradox1,new Point2D(14.95f*Main.WIDTH/10.5f,Main.HEIGHT/4f),10, 1.5f*Main.WIDTH/9.2f,3*Main.HEIGHT/4.5f);
+        paradox = new Paradoxes(Main.Paradox1,new Point2D(14.95f*Main.WIDTH/10.5f,Main.HEIGHT/4f),10, 1.5f*Main.WIDTH/9.2f/2f,3*Main.HEIGHT/4.5f/2f);
     }
 
     public void multitouch(float x, float y, boolean isDownTouch, int pointer){
@@ -341,13 +350,28 @@ public class GameSc extends Objects implements Screen  {
             d = true;
         }
     }
+    private boolean ParFlag = true;
+    private ArrayList<Paradoxes> par = new ArrayList<>();
 
-//    class Many extends Thread{
-//        @Override
-//        public void run(){
-//            while (true){
-//
-//            }
-//        }
-//    }
+    public ArrayList<Paradoxes> getPar() {
+        return par;
+    }
+
+    class Many extends Thread{
+        @Override
+        public void run(){
+            for (int i = 0; i<50; i++){
+                par.add(i,new Paradoxes(Main.Paradox1,paradox.position,paradox.speed, paradox.A, paradox.B));
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        private SpriteBatch batch;
+        public void batch(SpriteBatch batch){
+            this.batch = batch;
+        }
+    }
 }

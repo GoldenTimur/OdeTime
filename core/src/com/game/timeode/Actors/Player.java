@@ -60,6 +60,9 @@ public class Player extends Actor{
                 gameSc.walk(gameSc.getWater(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getTime(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getParadox(),-direction.getX() * speed, 0);
+                for (int i = 0; i<gameSc.getPar().size(); i++){
+                    gameSc.walk(gameSc.getPar().get(i),-direction.getX() * speed, 0);
+                }
             }
         }
         if(!Fight.fighter && position.getX()-Main.WIDTH/3f < 0){
@@ -73,6 +76,9 @@ public class Player extends Actor{
                 gameSc.walk(gameSc.getWater(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getTime(),-direction.getX() * speed, 0);
                 gameSc.walk(gameSc.getParadox(),-direction.getX() * speed, 0);
+                for (int i = 0; i<gameSc.getPar().size(); i++){
+                    gameSc.walk(gameSc.getPar().get(i),-direction.getX() * speed, 0);
+                }
             }
         }
         if(position.getY()+B+Main.HEIGHT/90f > Main.HEIGHT){
@@ -103,7 +109,7 @@ public class Player extends Actor{
         if (bounds.isContains(gameSc.getPit().getBounds()) && !bounds.isContains(gameSc.getBox().getBounds()) && GameSc.getA()==2){
             stop();
         }
-        if (!gameSc.getBox().isTouch() && bounds.isContains(gameSc.getWallLiane().bounds) && (GameSc.getA()==1 || GameSc.getA()==2 || GameSc.getA()==4)){
+        if (!gameSc.getBox().isTouch() && !Fight.fighter &&bounds.isContains(gameSc.getWallLiane().bounds) && (GameSc.getA()==1 || GameSc.getA()==2 || GameSc.getA()==4)){
             stop();
         }
 
@@ -160,6 +166,7 @@ public class Player extends Actor{
     class MyThread extends Thread{
         @Override
         public void run(){
+            Walk.interrupted();
             if (Joystick.ler){
                 setImg(Main.actorFight1_1);
                 a = 2.7027f*A;
@@ -234,6 +241,7 @@ public class Player extends Actor{
     class Walk extends Thread{
         @Override
         public void run(){
+            MyThread.interrupted();
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {

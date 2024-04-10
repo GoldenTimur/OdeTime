@@ -11,11 +11,12 @@ import com.game.timeode.Tools.Square;
 import java.util.Random;
 
 public class Paradoxes extends Actor{
-//    private Point2D position;
+    boolean touch = false;
     public Paradoxes(Texture img,Point2D position, float speed, float A, float B) {
         super(img, position, speed, A, B);
         Random random = new Random();
-//        this.position = new Point2D(random.nextFloat(Main.WIDTH),random.nextFloat(Main.HEIGHT));
+        System.out.println(A+" "+B);
+        this.position = new Point2D(random.nextFloat()*Main.WIDTH,random.nextFloat()*Main.HEIGHT);
     }
 
 
@@ -31,7 +32,20 @@ public class Paradoxes extends Actor{
         this.y = position.getY();
         if(bounds.isContains(gameSc.getPlayer().getBounds()) && Fight.fighter && GameSc.getA()==5){
             setImg(Main.Paradox2);
-            gameSc.setA(-1);
+//            gameSc.setA(-1);
+        }
+        if (!touch && bounds.isContains(gameSc.getPlayer().getBounds()) && Fight.fighter && GameSc.getA()==5){
+            touch = true;
+        }
+        if(gameSc.getPlayer().getPosition().getX() > this.position.getX()){
+            setPosition(new Point2D(speed,0));
+        }else {
+            setPosition(new Point2D(-speed,0));
+        }
+        if(gameSc.getPlayer().getPosition().getY() > this.position.getY()){
+            setPosition(new Point2D(0,speed));
+        }else {
+            setPosition(new Point2D(0,-speed));
         }
     }
 }
