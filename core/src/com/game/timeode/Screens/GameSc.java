@@ -138,10 +138,9 @@ public class GameSc extends Objects implements Screen  {
             player.setDirection(joy.getDir());
             player.update();
         }
-
     }
 
-    public static int a = 4;
+    public static int a = 0;
     private boolean d = true;
     public void GameRender(SpriteBatch batch){
         if (PlayButton.play) {
@@ -183,6 +182,7 @@ public class GameSc extends Objects implements Screen  {
     }
     public void setA(int a){
         if (!stopAllFlag){
+            Player.I = 0;
             stopAllFlag = true;
             StopAll stopAll = new StopAll();
             stopAll.start();
@@ -256,14 +256,17 @@ public class GameSc extends Objects implements Screen  {
             i++;
         }
         for (int i = 0; i < par.size(); i++){
-            par.get(i).update();
-            par.get(i).draw(batch);
+            if (!par.get(i).isTouch()) {
+                par.get(i).update();
+                par.get(i).draw(batch);
+            }
         }
+        System.out.println(par.size());
     }
     private int i=0;
 
     public void  loadActors(){
-        joy = new Joystick(Main.circle1,Main.circle2,new Point2D(0.11f*Main.WIDTH,0.25f*Main.HEIGHT),Main.HEIGHT/3f);
+        joy = new Joystick(Main.circle1,Main.circle2,new Point2D(0.15f*Main.WIDTH,0.25f*Main.HEIGHT),Main.HEIGHT/3f);
         player = new Player(Main.actor1,Main.actorFight1,new Point2D(Main.WIDTH/2f,Main.HEIGHT/2f),7,Main.WIDTH/20f,Main.HEIGHT/5f,20);
         fig = new Fight(Main.circle3,new Point2D(Main.WIDTH/1.125f,0.25f*Main.HEIGHT),Main.HEIGHT/3f);
         scene = new Scene(Main.Scene2,new Point2D(0,0), Main.HEIGHT*5.45f, Main.HEIGHT);
@@ -273,12 +276,12 @@ public class GameSc extends Objects implements Screen  {
         start = new Start(Main.PlayOut,new Point2D(0,0),Main.WIDTH,Main.HEIGHT);
         load = new Load(Main.Load,new Point2D(0,0),Main.WIDTH,Main.HEIGHT);
         box = new Boxes(Main.Box1,new Point2D(11.7f*Main.WIDTH/10.5f,3*Main.HEIGHT/4.875f),10,Main.WIDTH/9.2f,Main.HEIGHT/4.5f);
-        wallLiane = new WallLiane(Main.WallLiane1,new Point2D(Main.WIDTH/0.5f,-100),1,Main.WIDTH/20f,Main.HEIGHT*1.2f);
+        wallLiane = new WallLiane(Main.WallLiane1,new Point2D(Main.WIDTH/0.55f,-100),1,Main.WIDTH/20f,Main.HEIGHT*1.2f);
         plate = new Plate(Main.Plane1,new Point2D(15f*Main.WIDTH/10.5f,3*Main.HEIGHT/4.875f),10,Main.WIDTH/9.2f,Main.HEIGHT/4.5f);
         pit = new Pit(Main.Pit1,new Point2D(15f*Main.WIDTH/10.5f,0),10,Main.WIDTH/9.2f,Main.HEIGHT*1f);
         water = new Water(Main.Water1,new Point2D(14.95f*Main.WIDTH/10.5f,0),10,Main.WIDTH/9.2f,Main.HEIGHT*1f);
         time = new Time(Main.OldTime,new Point2D(15f*Main.WIDTH/10.5f,Main.HEIGHT/2.5f),7,2*Main.WIDTH/9.2f,2.25f*Main.HEIGHT/4.5f);
-        paradox = new Paradoxes(Main.Paradox1,new Point2D(14.95f*Main.WIDTH/10.5f,Main.HEIGHT/4f),10, 1.5f*Main.WIDTH/9.2f/2f,3*Main.HEIGHT/4.5f/2f);
+        paradox = new Paradoxes(Main.Paradox1,new Point2D(14.95f*Main.WIDTH/10.5f,Main.HEIGHT/4f),3,1.5f*Main.WIDTH/9.2f/2f,3*Main.HEIGHT/4.5f/2f,0);
     }
 
     public void multitouch(float x, float y, boolean isDownTouch, int pointer){
@@ -361,7 +364,7 @@ public class GameSc extends Objects implements Screen  {
         @Override
         public void run(){
             for (int i = 0; i<50; i++){
-                par.add(i,new Paradoxes(Main.Paradox1,paradox.position,paradox.speed, paradox.A, paradox.B));
+                par.add(par.size(),new Paradoxes(Main.Paradox1,paradox.position,paradox.speed,paradox.A,paradox.B,i));
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {

@@ -34,7 +34,7 @@ public class Joystick {
         if(CircleBounds.isContains(touch) && isDownTouch && this.pointer == -1){
             this.pointer = pointer;
         }
-        if(CircleBounds.Overlaps(StickBounds) && isDownTouch && pointer == this.pointer){
+        if(CircleBounds.isContains(StickBounds.getPos()) && isDownTouch && pointer == this.pointer){
             atControl(new Point2D(x,y));
             touchFlag = true;
         }

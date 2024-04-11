@@ -20,6 +20,7 @@ public class Player extends Actor{
     private boolean stopPlayer = false;
     private Dialogue dialogue;
     private Dialogue1 dialogue1;
+    public static int I = 0;
 
 
 
@@ -119,6 +120,11 @@ public class Player extends Actor{
                 Dialogue1Flag = true;
                 dialogue1.start();
             }
+        }
+
+        System.out.println(I);
+        if(I >= 50 && GameSc.getA()==5){
+            gameSc.setA(-1);
         }
     }
     public void fight(){
