@@ -20,9 +20,23 @@ public class Plate extends Actor {
         setBounds(new Square(A,B,this.position));
         this.x = position.getX();
         this.y = position.getY();
-        if (GameSc.getA()==4 && !(img == Main.Plane2)){
+        switch (GameSc.getA()){
+            case (1):
+                setImg(Main.Plane1);
+                break;
+            case (4):
+                if(Main.timeFlag){
+                    setImg(Main.Plane1);
+                }else {
+                    setImg(Main.Plane2);
+                }
+
+                break;
+        }
+        if (A4Flag && GameSc.getA()==4){
+            A4Flag = false;
             setPosition(18.2f*Main.WIDTH/10.5f, Main.HEIGHT/4.875f);
-            setImg(Main.Plane2);
         }
     }
+    public static boolean A4Flag = true;
 }

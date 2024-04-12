@@ -13,6 +13,11 @@ public class Circle {
         float dy = pos.getY() - point.getY();
         return dx*dx+dy*dy <= 7*A*A;
     }
+    public boolean isContainsFight(Point2D point){
+        float dx = pos.getX() - point.getX();
+        float dy = pos.getY() - point.getY();
+        return dx*dx+dy*dy <= A*A;
+    }
 
     public boolean Overlaps(Circle c){
         float dx = 1.25f*pos.getX() - c.pos.getX();

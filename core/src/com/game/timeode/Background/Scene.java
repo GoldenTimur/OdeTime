@@ -31,4 +31,8 @@ public class Scene extends GraphicsObj {
     public void setPosition(){
         this.position = new Point2D(constX,constY);
     }
+    public void setPosition(float x, float y) {
+        this.position = new Point2D(x,y);
+    }
+
 }

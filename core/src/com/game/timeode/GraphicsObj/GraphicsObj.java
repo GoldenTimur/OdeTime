@@ -24,7 +24,8 @@ public abstract class GraphicsObj {
     public Point2D getPosition() {
         return position;
     }
-    public void walk(float x,float y){
+
+    public void walk(float x, float y){
         position.add(x,y);
     }
 }

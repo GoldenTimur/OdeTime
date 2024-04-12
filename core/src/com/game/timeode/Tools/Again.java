@@ -3,18 +3,17 @@ package com.game.timeode.Tools;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.timeode.Actors.Player;
+import com.game.timeode.Main;
+import com.game.timeode.Screens.GameSc;
 
-public class Fight {
-    public static boolean fighter;
+public class Again {
     Texture CircleImg;
     Circle CircleBounds;
     float RCircle;
-    private int pointer = -1;
-    private boolean f = false;
-
     Point2D direction;
-
-    public Fight(Texture cimg, Point2D point, float Size) {
+    private int pointer = -1;
+    public static boolean AgainFlag = false;
+    public Again(Texture cimg, Point2D point, float Size) {
         CircleImg = cimg;
         RCircle = Size/2;
         CircleBounds = new Circle(RCircle, point);
@@ -27,25 +26,15 @@ public class Fight {
 
     public void update(float x, float y, boolean isDownTouch, int pointer){
         Point2D touch = new Point2D(x,y);
-        if(CircleBounds.isContainsFight(touch) && isDownTouch && this.pointer == -1 && !f){
+        if(!AgainFlag && CircleBounds.isContainsFight(touch) && isDownTouch && this.pointer == -1){
+            AgainFlag = true;
             this.pointer = pointer;
-            fighter = true;
-            f = true;
-        }
-        if (Player.h){
-            this.pointer = -1;
-            f = false;
-            Player.h = false;
+            Main.gameSc.setD(true);
+            Main.gameSc.onlySetA(GameSc.a-1);
         }
     }
 
-    public void returnStick(){
-        direction.setPoint(0,0);
-        fighter = false;
-        pointer = -1;
-    }
-    public Point2D getDir(){
-        return direction;
+    public void setPointer(int pointer) {
+        this.pointer = pointer;
     }
 }
-

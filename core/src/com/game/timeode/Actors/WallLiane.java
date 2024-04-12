@@ -29,7 +29,11 @@ public class WallLiane extends Actor{
                 break;
             case (2):
             case (4):
-                setImg(Main.WallLiane2);
+                if(Main.timeFlag){
+                    setImg(Main.WallLiane1);
+                }else {
+                    setImg(Main.WallLiane2);
+                }
                 break;
         }
         setBounds(new Square(A,B,this.position));

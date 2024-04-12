@@ -19,20 +19,22 @@ import com.game.timeode.Background.Start;
 import com.game.timeode.GraphicsObj.GraphicsObj;
 import com.game.timeode.Main;
 import com.game.timeode.Objects;
+import com.game.timeode.Tools.Again;
 import com.game.timeode.Tools.Fight;
 import com.game.timeode.Tools.Joystick;
 import com.game.timeode.Tools.PlayButton;
 import com.game.timeode.Tools.Point2D;
 
 import com.game.timeode.Background.Scene;
+import com.game.timeode.Tools.TimeButton;
 
 import java.util.ArrayList;
 
 public class GameSc extends Objects implements Screen  {
     Main main;
     Many many;
-    public GameSc(Main main, Joystick joy, Fight fig, Player player, Scene scene, Scene scene2, PlayButton playButton, Name name, Start start, Load load, Boxes box, WallLiane wallLiane, Plate plate, Pit pit, Time time, Water water, Paradoxes paradox) {
-        super(main,joy, fig, player, scene, scene2, playButton, name, start, load, box, wallLiane, plate, pit, time, water, paradox);
+    public GameSc(Main main, Joystick joy, Fight fig, Player player, Scene scene, Scene scene2, PlayButton playButton, Name name, Start start, Load load, Boxes box, WallLiane wallLiane, Plate plate, Pit pit, Time time, Water water, Paradoxes paradox, Again again, TimeButton timeButton) {
+        super(main,joy, fig, player, scene, scene2, playButton, name, start, load, box, wallLiane, plate, pit, time, water, paradox, again, timeButton);
         this.main = main;
         many = new Many();
     }
@@ -140,8 +142,9 @@ public class GameSc extends Objects implements Screen  {
         }
     }
 
-    public static int a = 0;
+    public static int a = 3;
     private boolean d = true;
+
     public void GameRender(SpriteBatch batch){
         if (PlayButton.play) {
             if (d) {
@@ -167,6 +170,8 @@ public class GameSc extends Objects implements Screen  {
                 player.draw(batch);
                 joy.draw(batch);
                 fig.draw(batch);
+                again.draw(batch);
+                timeButton.draw(batch);
                 player.getDialogue().draw(batch);
             }
 
@@ -234,14 +239,28 @@ public class GameSc extends Objects implements Screen  {
 
     }
     public void level4(SpriteBatch batch){
-        scene2.draw(batch);
-        water.draw(batch);
-        water.update();
+        if(Main.timeFlag){
+            scene.draw(batch);
+            pit.draw(batch);
+            pit.update();
+            scene2.setPosition(scene.getPosition().getX(),scene.getPosition().getY());
+            water.setPosition(pit.getPosition().getX(),pit.getPosition().getY());
+        }else {
+            scene2.draw(batch);
+            water.draw(batch);
+            water.update();
+            scene.setPosition(scene2.getPosition().getX(),scene2.getPosition().getY());
+            pit.setPosition(water.getPosition().getX(),water.getPosition().getY());
+        }
+//        System.out.println(pit.getPosition().getX());
+//        System.out.println(pit.getPosition().getY());
+//        System.out.println(water.getPosition().getX());
+//        System.out.println(water.getPosition().getY());
         plate.draw(batch);
         plate.update();
         box.draw(batch);
         box.update();
-        if (!getBox().isTouch()){
+        if (!getBox().isTouch() && Main.timeFlag){
             wallLiane.draw(batch);
         }
         wallLiane.update();
@@ -282,6 +301,8 @@ public class GameSc extends Objects implements Screen  {
         water = new Water(Main.Water1,new Point2D(14.95f*Main.WIDTH/10.5f,0),10,Main.WIDTH/9.2f,Main.HEIGHT*1f);
         time = new Time(Main.OldTime,new Point2D(15f*Main.WIDTH/10.5f,Main.HEIGHT/2.5f),7,2*Main.WIDTH/9.2f,2.25f*Main.HEIGHT/4.5f);
         paradox = new Paradoxes(Main.Paradox1,new Point2D(14.95f*Main.WIDTH/10.5f,Main.HEIGHT/4f),3,1.5f*Main.WIDTH/9.2f/2f,3*Main.HEIGHT/4.5f/2f,0);
+        again = new Again(Main.AgainButton, new Point2D(19*Main.WIDTH/20f,9*Main.HEIGHT/10f), Main.HEIGHT/7f);
+        timeButton = new TimeButton(Main.AgainButton, new Point2D(19*Main.WIDTH/20f,5*Main.HEIGHT/10f), Main.HEIGHT/7f);
     }
 
     public void multitouch(float x, float y, boolean isDownTouch, int pointer){
@@ -289,6 +310,8 @@ public class GameSc extends Objects implements Screen  {
             joy.update(x,y,isDownTouch,pointer);
             fig.update(x, y, isDownTouch, pointer);
             playButton.update(x, y, isDownTouch, pointer);
+            again.update(x, y, isDownTouch, pointer);
+            timeButton.update(x, y, isDownTouch, pointer);
         }
     }
     public void walk(GraphicsObj a,float x,float y){
@@ -317,6 +340,10 @@ public class GameSc extends Objects implements Screen  {
         this.d = d;
     }
 
+    public boolean isD() {
+        return d;
+    }
+
     public void setX(Point2D a, float x){
         a.setX(x);
     }
@@ -333,6 +360,15 @@ public class GameSc extends Objects implements Screen  {
             }
             d = false;
             ThreadFlag = true;
+            Again.AgainFlag = false;
+            again.setPointer(-1);
+            Main.timeFlag = true;
+            Plate.A4Flag = true;
+            box.setTouch(false,1);
+            box.setTouch(false,2);
+            box.setTouch(false,4);
+
+//            Player.Dialogue1Flag2 = true;
         }
     }
 
@@ -351,6 +387,7 @@ public class GameSc extends Objects implements Screen  {
             PlayButton.play = false;
             stopAllFlag = false;
             d = true;
+            Plate.A4Flag = true;
         }
     }
     private boolean ParFlag = true;

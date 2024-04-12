@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.timeode.Main;
 import com.game.timeode.Screens.GameSc;
+import com.game.timeode.Tools.Again;
 import com.game.timeode.Tools.Fight;
 import com.game.timeode.Tools.Joystick;
 import com.game.timeode.Tools.Point2D;
@@ -21,6 +22,8 @@ public class Player extends Actor{
     private Dialogue dialogue;
     private Dialogue1 dialogue1;
     public static int I = 0;
+    private MyThread thread;
+    private Walk walk;
 
 
 
@@ -107,10 +110,10 @@ public class Player extends Actor{
                 gameSc.getBox().walkBox(-15.3f * gameSc.getBox().A / 16, 0);
             }
         }
-        if (bounds.isContains(gameSc.getPit().getBounds()) && !bounds.isContains(gameSc.getBox().getBounds()) && GameSc.getA()==2){
+        if (bounds.isContains(gameSc.getPit().getBounds()) && !Fight.fighter && !bounds.isContains(gameSc.getBox().getBounds()) && (GameSc.getA()==2 || (GameSc.getA()==4 && Main.timeFlag))){
             stop();
         }
-        if (!gameSc.getBox().isTouch() && !Fight.fighter &&bounds.isContains(gameSc.getWallLiane().bounds) && (GameSc.getA()==1 || GameSc.getA()==2 || GameSc.getA()==4)){
+        if (!gameSc.getBox().isTouch() && !Fight.fighter && bounds.isContains(gameSc.getWallLiane().bounds) && (GameSc.getA()==1 || GameSc.getA()==2 || GameSc.getA()==4)){
             stop();
         }
 
@@ -122,15 +125,21 @@ public class Player extends Actor{
             }
         }
 
-        System.out.println(I);
-        if(I >= 50 && GameSc.getA()==5){
+//        System.out.println(I);
+        if (I >= 50 && GameSc.getA()==5){
             gameSc.setA(-1);
         }
+
+//        if (Dialogue1Flag2 && Again.AgainFlag && gameSc.isD() && dialogue1 != null){
+//            Dialogue1Flag2 = false;
+//            dialogue1.interrupt();
+//        }
     }
+//    public static boolean Dialogue1Flag2 = true;
     public void fight(){
         if (ThreadFlag && !walkFlag){
             ThreadFlag = false;
-            MyThread thread = new MyThread();
+            thread = new MyThread();
             thread.start();
         }
 
@@ -143,7 +152,7 @@ public class Player extends Actor{
     public void walk(){
         if(!walkFlag && Joystick.touchFlag && ThreadFlag) {
             walkFlag = true;
-            Walk walk = new Walk();
+            walk = new Walk();
             walk.start();
         }else if(!Joystick.touchFlag){
             if (Joystick.ler && !Fight.fighter){
@@ -172,18 +181,18 @@ public class Player extends Actor{
     class MyThread extends Thread{
         @Override
         public void run(){
-            Walk.interrupted();
-            if (Joystick.ler){
+            walk = new Walk();
+            if (Joystick.ler) {
                 setImg(Main.actorFight1_1);
-                a = 2.7027f*A;
-                b = 0.9259f*B;
+                a = 2.7027f * A;
+                b = 0.9259f * B;
                 A = a;
                 B = b;
-            }else {
+            } else {
                 setImg(Main.actorFight1);
-                setPosition(new Point2D(-185,0));
-                a = 2.7027f*A;
-                b = 0.9259f*B;
+                setPosition(new Point2D(-185, 0));
+                a = 2.7027f * A;
+                b = 0.9259f * B;
                 A = a;
                 B = b;
             }
@@ -195,9 +204,9 @@ public class Player extends Actor{
                 throw new RuntimeException(e);
             }
 
-            if (Joystick.ler){
+            if (Joystick.ler) {
                 setImg(Main.actorFight2_1);
-            }else {
+            } else {
                 setImg(Main.actorFight2);
             }
 
@@ -207,9 +216,9 @@ public class Player extends Actor{
                 throw new RuntimeException(e);
             }
 
-            if (Joystick.ler){
+            if (Joystick.ler) {
                 setImg(Main.actorFight3_1);
-            }else {
+            } else {
                 setImg(Main.actorFight3);
             }
 
@@ -226,9 +235,9 @@ public class Player extends Actor{
             B = constB;
             Fight.fighter = false;
 
-            if (Joystick.ler){
+            if (Joystick.ler) {
                 setImg(Main.actor1_1);
-            }else {
+            } else {
                 setImg(Main.actor1);
             }
 
@@ -247,106 +256,108 @@ public class Player extends Actor{
     class Walk extends Thread{
         @Override
         public void run(){
-            MyThread.interrupted();
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            if (Joystick.ler){
-                setImg(Main.actor2_1);
-            }else {
-                setImg(Main.actor2);
-            }
+            synchronized (this) {
+                thread = new MyThread();
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                if (Joystick.ler) {
+                    setImg(Main.actor2_1);
+                } else {
+                    setImg(Main.actor2);
+                }
 
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            if (Joystick.ler){
-                setImg(Main.actor3_1);
-            }else {
-                setImg(Main.actor3);
-            }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                if (Joystick.ler) {
+                    setImg(Main.actor3_1);
+                } else {
+                    setImg(Main.actor3);
+                }
 
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            if (Joystick.ler){
-                setImg(Main.actor4_1);
-            }else {
-                setImg(Main.actor4);
-            }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                if (Joystick.ler) {
+                    setImg(Main.actor4_1);
+                } else {
+                    setImg(Main.actor4);
+                }
 
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            if (Joystick.ler){
-                setImg(Main.actor5_1);
-            }else {
-                setImg(Main.actor5);
-            }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                if (Joystick.ler) {
+                    setImg(Main.actor5_1);
+                } else {
+                    setImg(Main.actor5);
+                }
 
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            if (Joystick.ler){
-                setImg(Main.actor6_1);
-            }else {
-                setImg(Main.actor6);
-            }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                if (Joystick.ler) {
+                    setImg(Main.actor6_1);
+                } else {
+                    setImg(Main.actor6);
+                }
 
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            if (Joystick.ler){
-                setImg(Main.actor7_1);
-            }else {
-                setImg(Main.actor7);
-            }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                if (Joystick.ler) {
+                    setImg(Main.actor7_1);
+                } else {
+                    setImg(Main.actor7);
+                }
 
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            if (Joystick.ler){
-                setImg(Main.actor8_1);
-            }else {
-                setImg(Main.actor8);
-            }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                if (Joystick.ler) {
+                    setImg(Main.actor8_1);
+                } else {
+                    setImg(Main.actor8);
+                }
 
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            if (Joystick.ler){
-                setImg(Main.actor9_1);
-            }else {
-                setImg(Main.actor9);
-            }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                if (Joystick.ler) {
+                    setImg(Main.actor9_1);
+                } else {
+                    setImg(Main.actor9);
+                }
 
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                if (Joystick.ler) {
+                    setImg(Main.actor10_1);
+                } else {
+                    setImg(Main.actor10);
+                }
+                walkFlag = false;
             }
-            if (Joystick.ler){
-                setImg(Main.actor10_1);
-            }else {
-                setImg(Main.actor10);
-            }
-            walkFlag = false;
         }
     }
 

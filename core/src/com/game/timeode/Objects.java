@@ -13,9 +13,11 @@ import com.game.timeode.Background.Name;
 import com.game.timeode.Background.Scene;
 import com.game.timeode.Background.Start;
 import com.game.timeode.Screens.GameSc;
+import com.game.timeode.Tools.Again;
 import com.game.timeode.Tools.Fight;
 import com.game.timeode.Tools.Joystick;
 import com.game.timeode.Tools.PlayButton;
+import com.game.timeode.Tools.TimeButton;
 
 public abstract class Objects implements Interface{
     protected Joystick joy;
@@ -35,9 +37,11 @@ public abstract class Objects implements Interface{
     protected Time time;
     protected Water water;
     protected Paradoxes paradox;
+    protected Again again;
+    protected TimeButton timeButton;
 
 
-    public Objects(Main main, Joystick joy, Fight fig, Player player, Scene scene, Scene scene2, PlayButton playButton, Name name, Start start, Load load, Boxes box, WallLiane wallLiane, Plate plate, Pit pit, Time time, Water water, Paradoxes paradox) {
+    public Objects(Main main, Joystick joy, Fight fig, Player player, Scene scene, Scene scene2, PlayButton playButton, Name name, Start start, Load load, Boxes box, WallLiane wallLiane, Plate plate, Pit pit, Time time, Water water, Paradoxes paradox, Again again, TimeButton timeButton) {
         this.joy = joy;
         this.fig = fig;
         this.player = player;
@@ -55,6 +59,8 @@ public abstract class Objects implements Interface{
         this.water = water;
         this.time = time;
         this.paradox = paradox;
+        this.again = again;
+        this.timeButton = timeButton;
     }
 
 
@@ -76,8 +82,13 @@ public abstract class Objects implements Interface{
             case (3):
                 return scene;
             case (2):
-            case (4):
                 return scene2;
+            case (4):
+                if (Main.timeFlag){
+                    return scene;
+                } else {
+                    return scene2;
+                }
         }
         return scene;
     }
@@ -141,5 +152,13 @@ public abstract class Objects implements Interface{
 
     public Paradoxes getParadox() {
         return paradox;
+    }
+
+    public Again getAgain() {
+        return again;
+    }
+
+    public TimeButton getTimeButton() {
+        return timeButton;
     }
 }

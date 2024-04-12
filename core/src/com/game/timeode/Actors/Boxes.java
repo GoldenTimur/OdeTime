@@ -37,7 +37,12 @@ public class Boxes extends Actor{
                     setImg(Main.Box4);
                     break;
                 case (4):
-                    setImg(Main.Box2);
+                    if (Main.timeFlag) {
+                        setImg(Main.Box1);
+                    }else {
+                        setImg(Main.Box2);
+                    }
+                    break;
             }
         }
 
@@ -48,10 +53,14 @@ public class Boxes extends Actor{
             setImg(Main.Box5);
             touch1 = true;
         }
-        if (!walkBoxFlag && bounds.isContainsInside(gameSc.getWater().getBounds()) && GameSc.getA()==4){
+        if (!Main.timeFlag && !walkBoxFlag && bounds.isContainsInside(gameSc.getWater().getBounds()) && GameSc.getA()==4){
             walkBoxFlag = true;
             walkBox = new WalkBox();
             walkBox.start();
+        }
+        if (Main.timeFlag && bounds.isContainsInside(gameSc.getPit().getBounds()) && GameSc.getA()==4){
+            setImg(Main.Box6);
+            touch2 = true;
         }
         if (!touch2 && bounds.isContainsInside(gameSc.getPlate().getBounds()) && GameSc.getA()==4){
             touch2 = true;
@@ -78,6 +87,19 @@ public class Boxes extends Actor{
 
     public void setTouch(boolean touch) {
         switch(GameSc.getA()){
+            case (1):
+                this.touch = touch;
+                break;
+            case (2):
+                this.touch1 = touch;
+                break;
+            case (4):
+                this.touch2 = touch;
+                break;
+        }
+    }
+    public void setTouch(boolean touch, int a) {
+        switch(a){
             case (1):
                 this.touch = touch;
                 break;

@@ -13,9 +13,11 @@ import com.game.timeode.Background.Name;
 import com.game.timeode.Background.Scene;
 import com.game.timeode.Background.Start;
 import com.game.timeode.Screens.GameSc;
+import com.game.timeode.Tools.Again;
 import com.game.timeode.Tools.Fight;
 import com.game.timeode.Tools.Joystick;
 import com.game.timeode.Tools.PlayButton;
+import com.game.timeode.Tools.TimeButton;
 
 public interface Interface {
     Joystick joy = null;
@@ -35,5 +37,7 @@ public interface Interface {
     Water water = null;
     Time time = null;
     Paradoxes paradox = null;
+    Again again = null;
+    TimeButton timeButton = null;
 
 }

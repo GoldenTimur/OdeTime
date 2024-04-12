@@ -22,5 +22,13 @@ public class Pit extends Actor{
         setBounds(new Square(A,B,this.position));
         this.x = position.getX();
         this.y = position.getY();
+        switch (GameSc.getA()){
+            case (2):
+                setImg(Main.Pit1);
+                break;
+            case (4):
+                setImg(Main.Pit2);
+                break;
+        }
     }
 }
