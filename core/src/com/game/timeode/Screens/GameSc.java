@@ -142,7 +142,7 @@ public class GameSc extends Objects implements Screen  {
         }
     }
 
-    public static int a = 0;
+    public static int a = 3;
     private boolean d = true;
 
     public void GameRender(SpriteBatch batch){
@@ -263,7 +263,7 @@ public class GameSc extends Objects implements Screen  {
         plate.update();
         box.draw(batch);
         box.update();
-        if (!getBox().isTouch() && Main.timeFlag){
+        if (!getBox().isTouch()){
             wallLiane.draw(batch);
         }
         wallLiane.update();
@@ -367,6 +367,7 @@ public class GameSc extends Objects implements Screen  {
             again.setPointer(-1);
             Main.timeFlag = true;
             Plate.A4Flag = true;
+            box.setTouch2(false);
             box.setTouch(false,1);
             box.setTouch(false,2);
             box.setTouch(false,4);

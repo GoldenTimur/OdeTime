@@ -16,6 +16,7 @@ public class Boxes extends Actor{
     private boolean touch = false;
     private boolean touch1 = false;
     private boolean touch2 = false;
+    private boolean touch2_1 = false;
     WalkBox walkBox;
     private boolean walkBoxFlag = false;
 
@@ -28,7 +29,7 @@ public class Boxes extends Actor{
         setBounds(new Square(A,B,this.position));
         this.x = position.getX();
         this.y = position.getY();
-        if(!isTouch()) {
+        if(!isTouch() && !touch2_1) {
             switch (GameSc.getA()) {
                 case (1):
                     setImg(Main.Box1);
@@ -58,9 +59,9 @@ public class Boxes extends Actor{
             walkBox = new WalkBox();
             walkBox.start();
         }
-        if (Main.timeFlag && bounds.isContainsInside(gameSc.getPit().getBounds()) && GameSc.getA()==4){
+        if (!touch2_1 && Main.timeFlag && bounds.isContainsInside(gameSc.getPit().getBounds()) && GameSc.getA()==4){
             setImg(Main.Box6);
-            touch2 = true;
+            touch2_1 = true;
         }
         if (!touch2 && bounds.isContainsInside(gameSc.getPlate().getBounds()) && GameSc.getA()==4){
             touch2 = true;
@@ -68,7 +69,7 @@ public class Boxes extends Actor{
     }
 
     public void walkBox(float x, float y) {
-        if (!isTouch()){
+        if (!isTouch() && !touch2_1){
             position = new Point2D(position.getX() + x, position.getY() + y);
         }
     }
@@ -110,6 +111,9 @@ public class Boxes extends Actor{
                 this.touch2 = touch;
                 break;
         }
+    }
+    public void setTouch2(boolean a){
+        this.touch2_1 = a;
     }
     class WalkBox extends Thread{
         @Override
