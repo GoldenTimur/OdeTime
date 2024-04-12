@@ -117,7 +117,7 @@ public class Player extends Actor{
         }
 
         if (bounds.isContains(gameSc.getTime().getBounds()) || GameSc.getA()==1){
-            if (!Dialogue1Flag){
+            if (!Dialogue1Flag && !Again.AgainFlag){
                 dialogue1 = new Dialogue1();
                 Dialogue1Flag = true;
                 dialogue1.start();
@@ -405,7 +405,7 @@ public class Player extends Actor{
                     break;
                 case (3):
                     try {
-                        Thread.sleep(7000);
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }

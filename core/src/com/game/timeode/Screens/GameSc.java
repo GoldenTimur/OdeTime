@@ -142,7 +142,7 @@ public class GameSc extends Objects implements Screen  {
         }
     }
 
-    public static int a = 3;
+    public static int a = 0;
     private boolean d = true;
 
     public void GameRender(SpriteBatch batch){
