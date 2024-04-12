@@ -21,7 +21,7 @@ public class Main extends Game implements Interface {
 	public static boolean timeFlag = false;
 	public static GameSc gameSc;
 
-	public static Texture Empty, Dialogue1, Dialogue2, Dialogue3, Dialogue4, Dialogue5, Dialogue6, Dialogue7, Dialogue8, Dialogue9, Dialogue10, Dialogue11, OldTime, PlayOut,Play , Name, Scene1, Scene2, circle1, circle2, circle3, actor1, actor1_1, actor2, actor2_1, actor3, actor3_1, actor4, actor4_1, actor5, actor5_1, actor6, actor6_1, actor7, actor7_1, actor8, actor8_1, actor9, actor9_1, actor10, actor10_1, actorFight1, actorFight1_1, actorFight2, actorFight2_1, actorFight3, actorFight3_1, actorFight4, actorFight5, Load, Box1, Box2, Box3, Box4, Box5, Box6, WallLiane1, WallLiane2, Plane1, Plane2, Water1, Water2, Pit1, Pit2, Paradox1, Paradox2, AgainButton;
+	public static Texture Empty, Dialogue1, Dialogue2, Dialogue3, Dialogue4, Dialogue5, Dialogue6, Dialogue7, Dialogue8, Dialogue9, Dialogue10, Dialogue11, OldTime, PlayOut,Play , Name, Scene1, Scene2, circle1, circle2, circle3, actor1, actor1_1, actor2, actor2_1, actor3, actor3_1, actor4, actor4_1, actor5, actor5_1, actor6, actor6_1, actor7, actor7_1, actor8, actor8_1, actor9, actor9_1, actor10, actor10_1, actorFight1, actorFight1_1, actorFight2, actorFight2_1, actorFight3, actorFight3_1, actorFight4, actorFight5, Load, Box1, Box2, Box3, Box4, Box5, Box6, WallLiane1, WallLiane2, Plane1, Plane2, Water1, Water2, Pit1, Pit2, Paradox1, Paradox2, AgainButton, TimeButton, qwerty;
 
 	@Override
 	public void create () {
@@ -93,6 +93,8 @@ public class Main extends Game implements Interface {
 		Paradox1 = new Texture("Paradox1.png");
 		Paradox2 = new Texture("Paradox2.png");
 		AgainButton = new Texture("DashButton.png");
+		TimeButton = new Texture("TimeButton.png");
+		qwerty = new Texture("qwerty.png");
 		gameSc = new GameSc(this, joy, fig, player, scene, scene2, playButton, name, start, load, box, wallLiane, plate, pit, time, water, paradox, again, timeButton);
 		setScreen(gameSc);
 	}

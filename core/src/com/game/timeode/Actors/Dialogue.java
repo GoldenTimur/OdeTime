@@ -17,6 +17,8 @@ public class Dialogue extends Actor {
 
     @Override
     public void update() {
-
+        A = this.bounds.getA();
+        B = this.bounds.getB();
+        System.out.println(this.bounds);
     }
 }

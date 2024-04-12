@@ -142,7 +142,7 @@ public class GameSc extends Objects implements Screen  {
         }
     }
 
-    public static int a = 3;
+    public static int a = 0;
     private boolean d = true;
 
     public void GameRender(SpriteBatch batch){
@@ -171,8 +171,11 @@ public class GameSc extends Objects implements Screen  {
                 joy.draw(batch);
                 fig.draw(batch);
                 again.draw(batch);
-                timeButton.draw(batch);
+                if(a>=4) {
+                    timeButton.draw(batch);
+                }
                 player.getDialogue().draw(batch);
+                player.getDialogue().update();
             }
 
 
@@ -302,7 +305,7 @@ public class GameSc extends Objects implements Screen  {
         time = new Time(Main.OldTime,new Point2D(15f*Main.WIDTH/10.5f,Main.HEIGHT/2.5f),7,2*Main.WIDTH/9.2f,2.25f*Main.HEIGHT/4.5f);
         paradox = new Paradoxes(Main.Paradox1,new Point2D(14.95f*Main.WIDTH/10.5f,Main.HEIGHT/4f),3,1.5f*Main.WIDTH/9.2f/2f,3*Main.HEIGHT/4.5f/2f,0);
         again = new Again(Main.AgainButton, new Point2D(19*Main.WIDTH/20f,9*Main.HEIGHT/10f), Main.HEIGHT/7f);
-        timeButton = new TimeButton(Main.AgainButton, new Point2D(19*Main.WIDTH/20f,5*Main.HEIGHT/10f), Main.HEIGHT/7f);
+        timeButton = new TimeButton(Main.TimeButton, new Point2D(19*Main.WIDTH/20f,5*Main.HEIGHT/10f), Main.HEIGHT/7f);
     }
 
     public void multitouch(float x, float y, boolean isDownTouch, int pointer){

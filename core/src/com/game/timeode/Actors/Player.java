@@ -26,7 +26,6 @@ public class Player extends Actor{
     private Walk walk;
 
 
-
     public Player(Texture imgwalk, Texture imgfig, Point2D position, float speed, float A, float B, float health) {
         super(imgwalk, position, speed, A, B);
         this.health = health;
@@ -406,71 +405,86 @@ public class Player extends Actor{
                     break;
                 case (3):
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(7000);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
                     dialogue.setImg(Main.Dialogue3);
 
                     try {
-                        Thread.sleep(5000);
+                        Thread.sleep(7000);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
                     dialogue.setImg(Main.Dialogue4);
 
                     try {
-                        Thread.sleep(5000);
+                        Thread.sleep(7000);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
                     dialogue.setImg(Main.Dialogue5);
 
                     try {
-                        Thread.sleep(5000);
+                        Thread.sleep(7000);
                     } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                     }
                     dialogue.setImg(Main.Dialogue6);
 
                     try {
-                    Thread.sleep(5000);
+                    Thread.sleep(7000);
                     } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                     }
                     dialogue.setImg(Main.Dialogue7);
 
                     try {
-                        Thread.sleep(5000);
+                        Thread.sleep(7000);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
                     dialogue.setImg(Main.Dialogue8);
 
                     try {
-                        Thread.sleep(5000);
+                        Thread.sleep(7000);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
                     dialogue.setImg(Main.Dialogue9);
 
                     try {
-                        Thread.sleep(5000);
+                        Thread.sleep(7000);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
                     dialogue.setImg(Main.Dialogue10);
 
                     try {
-                        Thread.sleep(5000);
+                        Thread.sleep(7000);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
                     dialogue.setImg(Main.Dialogue11);
+
+                    try {
+                        Thread.sleep(7000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    dialogue.setBounds(new Square(Main.WIDTH/1.5f,2*Main.HEIGHT/2.5f, dialogue.getPosition()));
+                    dialogue.setImg(Main.qwerty);
+
+                    try {
+                        Thread.sleep(12000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                     gameSc.getBox().setTouch(false);
                     gameSc.setD(true);
                     break;
             }
+            dialogue.setBounds(new Square(Main.WIDTH/1.5f,Main.HEIGHT/2.5f, dialogue.getPosition()));
             dialogue.setImg(Main.Empty);
             stopPlayer = false;
         }
